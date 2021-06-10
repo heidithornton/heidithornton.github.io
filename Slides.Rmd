@@ -407,38 +407,11 @@ head(combined, n=5)
 
 First we will create a basic table with limited formatting using the **formattable** package
 
-```{css 2, echo=FALSE}
-<style>
-.table {
-    font-size: 70%;
-    overflow: auto;
-    width: auto;
-  }
-  th {
-    background-color: white;
-    color: black;
-    font-weight: normal;
-    font-size: 80%;
-    padding: 0px 0px;
-    text-align: center;
-  }
-  tbody {
-    background-color: white;
-    color: black;
-    padding: 0px 0px;
-    text-align: center;
-    font-size: 70%;
-  }
-  td {
-    background-color: white;
-}
-<style>
 
-```
 --
 
 
-```{r table part 1, message=FALSE, warning=FALSE, results='asis'}
+```{r table part 1, message=FALSE, warning=FALSE}
 library(formattable)
 combined <- combined[c(2:10)]
 formattable(combined, align = c('c'),
