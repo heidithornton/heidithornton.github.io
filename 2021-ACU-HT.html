@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>2021-ACU-HT.knit</title>
+    <meta charset="utf-8" />
+    <script src="2021-ACU-HT_files/header-attrs/header-attrs.js"></script>
+    <link href="2021-ACU-HT_files/remark-css/default.css" rel="stylesheet" />
+    <script src="2021-ACU-HT_files/htmlwidgets/htmlwidgets.js"></script>
+    <script src="2021-ACU-HT_files/jquery/jquery.min.js"></script>
+    <link href="2021-ACU-HT_files/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="2021-ACU-HT_files/datatables-binding/datatables.js"></script>
+    <link href="2021-ACU-HT_files/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="2021-ACU-HT_files/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="2021-ACU-HT_files/dt-core/js/jquery.dataTables.min.js"></script>
+    <link href="2021-ACU-HT_files/crosstalk/css/crosstalk.css" rel="stylesheet" />
+    <script src="2021-ACU-HT_files/crosstalk/js/crosstalk.min.js"></script>
+    <link href="2021-ACU-HT_files/jquery-sparkline/jquery.sparkline.css" rel="stylesheet" />
+    <script src="2021-ACU-HT_files/jquery-sparkline/jquery.sparkline.js"></script>
+    <script src="2021-ACU-HT_files/sparkline-binding/sparkline.js"></script>
+    <link rel="stylesheet" href="assets/heidi.css" type="text/css" />
+    <link rel="stylesheet" href="assets/heidi-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+class: left, top
+background-image: url("Images/Metricon 2.jpg")
+background-size: cover
+opacity: 0.5
+## Using R and Power BI in sport
+#### Heidi Thornton, PhD | ACU High-Performance Sport Seminar
+
+
+
+---
+
+
+
+
+
+class: left
+
+background-image: url("Images/Home.jpg")
+background-position: 100% 50%
+background-size: 40% 65%
+
+# About me
+
+
+
+👋I'm an applied sports scientist
+
+--
+
+I currently work with two 🏈teams
+
+--
+
+- Gold Coast Suns Football Club (AFL)
+
+
+- Newcastle Knights Rugby League Club (NRL)
+
+--
+
+I use R and Power BI daily
+
+--
+
+Outside of work, I love running and the gym 🏋️‍♀️
+
+--
+
+📌I live in an pretty amazing place (Newcastle)
+
+---
+
+class: center, middle
+
+
+&lt;font size="20"&gt; 'Start with the end in mind' &lt;/font&gt;
+
+
+### Credit to [Dr Jacquie Tran](https://jacquietran.github.io/2019_essa_forum/R/#1)
+
+
+---
+class: left
+
+# Why not just use excel?
+
+
+Both [Alice Sweeting](http://sportstatisticsrsweet.rbind.io/) and [Jacquie Tran](https://www.jacquietran.com/) have presented on this previously
+
+--
+
+BUT the general story is....
+
+--
+
+&lt;img src="https://media.giphy.com/media/Sb9KqeeymLlESGWZyE/giphy.gif" width="24%" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: left
+
+# There are better ways! 
+
+&lt;img src="https://media.giphy.com/media/Qsln1twXgPZE5eOB5a/giphy.gif" width="17%" style="display: block; margin: auto;" /&gt;
+--
+
+Both R and Power BI are terrific tools for sports scientists and S&amp;C coaches
+
+--
+
+&lt;img src="Images/R.jpg" width="8%"/&gt; R is free, can clean, analyse and visualise
+
+
+&lt;img src="Images/Power BI.png" width="8%"/&gt; Power BI is free, easy to use, clean, analyse and visualise
+
+
+
+---
+
+class: left
+
+# Lets get started in R
+
+❗ I'm skipping the setup of R and Power BI as there are **tonnes** of resources available (see end of presentation)
+
+--
+
+✔️ We will create a GPS match report in R **without** touching Excel
+ 
+--
+
+🔑 Firstly, we need to install a few R **packages**
+
+
+```r
+Packages &lt;- c('readxl','tidyverse','dplyr','ggplot2', 'sparkline', 'kableExtra', 'data.table',
+              'formattable', 'DT')
+
+# Install listed packages
+install.packages(Packages)
+```
+
+
+&lt;img src="Images/readxl.png" width="10%" /&gt;&lt;img src="Images/tidyverse.jpg" width="10%" /&gt;&lt;img src="Images/dplyr.png" width="10%" /&gt;&lt;img src="Images/catapultR.png" width="10%" /&gt;&lt;img src="Images/KableExtra.jpg" width="10%" /&gt;&lt;img src="Images/ggplot2.jpg" width="10%" /&gt;&lt;img src="Images/datatable.png" width="10%" /&gt;
+
+---
+
+# CatapultR package
+
+✔️ **`catapultR`** is a new R package developed by Catapult 
+
+--
+
+.pull-left[It allows users to pull data directly from their cloud account, speed up reporting processes] 
+
+
+&lt;img src="https://media.giphy.com/media/l4HodBpDmoMA5p9bG/giphy.gif" width="23%" style="display: block; margin: auto;" /&gt;
+
+--
+
+
+```r
+# Install catapultR
+devtools::install_bitbucket("catapultsports/catapultr")
+```
+--
+
+🔨 **`catapultR`** is still a demo version
+
+You can download it, but Catapult aren't accepting new users just yet
+
+---
+
+# Pull sessions from the cloud
+
+<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M416 112c-17.6 0-32 14.4-32 32v72c0 4.4-3.6 8-8 8h-16c-4.4 0-8-3.6-8-8V64c0-17.6-14.4-32-32-32s-32 14.4-32 32v152c0 4.4-3.6 8-8 8h-16c-4.4 0-8-3.6-8-8V32c0-17.6-14.4-32-32-32s-32 14.4-32 32v184c0 4.4-3.6 8-8 8h-16c-4.4 0-8-3.6-8-8V64c0-17.6-14.4-32-32-32S96 46.4 96 64v241l-23.6-32.5c-13-17.9-38-21.8-55.9-8.8s-21.8 38-8.8 55.9l125.6 172.7c9 12.4 23.5 19.8 38.8 19.8h197.6c22.3 0 41.6-15.3 46.7-37l26.5-112.7c3.2-13.7 4.9-28.3 5.1-42.3V144c0-17.6-14.4-32-32-32zM176 416c-8.8 0-16-7.2-16-16s7.2-16 16-16 16 7.2 16 16-7.2 16-16 16zm0-96c-8.8 0-16-7.2-16-16s7.2-16 16-16 16 7.2 16 16-7.2 16-16 16zm64 128c-8.8 0-16-7.2-16-16s7.2-16 16-16 16 7.2 16 16-7.2 16-16 16zm0-96c-8.8 0-16-7.2-16-16s7.2-16 16-16 16 7.2 16 16-7.2 16-16 16zm64 32c-8.8 0-16-7.2-16-16s7.2-16 16-16 16 7.2 16 16-7.2 16-16 16zm32 64c-8.8 0-16-7.2-16-16s7.2-16 16-16 16 7.2 16 16-7.2 16-16 16zm32-128c-8.8 0-16-7.2-16-16s7.2-16 16-16 16 7.2 16 16-7.2 16-16 16z"/></svg> These credentials are for presentation purposes only 
+
+
+```r
+# token &lt;- ofCloudGetToken(sRegion = "APAC, sName = " Acc name", sPwd = "acc password",
+                        # sClientID = "ID", ClientSecret = "secret")
+# activities &lt;- ofCloudGetActivities(token)
+
+# target &lt;- c("Name of game to include")
+# activities &lt;- filter(activities, name %in% target)
+```
+
+
+
+
+
+--
+<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M432 160H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0 256H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM108.1 96h231.81A12.09 12.09 0 0 0 352 83.9V44.09A12.09 12.09 0 0 0 339.91 32H108.1A12.09 12.09 0 0 0 96 44.09V83.9A12.1 12.1 0 0 0 108.1 96zm231.81 256A12.09 12.09 0 0 0 352 339.9v-39.81A12.09 12.09 0 0 0 339.91 288H108.1A12.09 12.09 0 0 0 96 300.09v39.81a12.1 12.1 0 0 0 12.1 12.1z"/></svg> Now lets see what parameters are available to view
+
+
+```r
+parameters &lt;- ofCloudGetParameters(token)
+glimpse(parameters)
+```
+
+```
+## Rows: 1,046
+## Columns: 6
+## $ id                &lt;chr&gt; "00025054-617c-45f1-ae03-a768ebfcd893", "003eb200-19~
+## $ parameter_type_id &lt;chr&gt; "417654ed-209f-4c6f-a028-62c10f873d18", "65344b9a-85~
+## $ name              &lt;chr&gt; "IMA Accel Medium", "Velocity Band 2 Average Effort ~
+## $ original_name     &lt;chr&gt; "IMA Accel Medium", "Velocity Band 2 Average Effort ~
+## $ slug              &lt;chr&gt; "ima_band2_accel_count", "velocity_band2_average_eff~
+## $ calculation       &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "", "", "", ~
+```
+
+---
+
+# Create dataset
+
+Using our credentials, we can now select what metrics we want
+
+
+
+```r
+data &lt;- ofCloudGetStatistics(
+  token, params = c("date", 
+        "athlete_name","total_duration","total_distance",
+        "meterage_per_minute","velocity_band6_total_distance","max_vel"), 
+  
+  groupby = c("athlete", "activity"), 
+  filters = list(name = "activity_id",
+                 comparison = "=",
+                 values = activities$id))
+```
+
+
+--
+
+```r
+head(data, n=3)
+```
+
+```
+##         date       Name total_distance total_duration  max_vel
+## 1 21/03/2021 Athlete 41       13000.07        5753.67 30.75762
+## 2 27/03/2021 Athlete 41       12280.45        5510.38 33.12540
+## 3 02/04/2021 Athlete 41       11235.87        4722.58 30.84264
+##   velocity_band6_total_distance meterage_per_minute
+## 1                        341.81            135.5664
+## 2                        353.66            133.7162
+## 3                        377.41            142.7508
+```
+
+---
+
+# Summarise data 
+
+ <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M332.8 320h38.4c6.4 0 12.8-6.4 12.8-12.8V172.8c0-6.4-6.4-12.8-12.8-12.8h-38.4c-6.4 0-12.8 6.4-12.8 12.8v134.4c0 6.4 6.4 12.8 12.8 12.8zm96 0h38.4c6.4 0 12.8-6.4 12.8-12.8V76.8c0-6.4-6.4-12.8-12.8-12.8h-38.4c-6.4 0-12.8 6.4-12.8 12.8v230.4c0 6.4 6.4 12.8 12.8 12.8zm-288 0h38.4c6.4 0 12.8-6.4 12.8-12.8v-70.4c0-6.4-6.4-12.8-12.8-12.8h-38.4c-6.4 0-12.8 6.4-12.8 12.8v70.4c0 6.4 6.4 12.8 12.8 12.8zm96 0h38.4c6.4 0 12.8-6.4 12.8-12.8V108.8c0-6.4-6.4-12.8-12.8-12.8h-38.4c-6.4 0-12.8 6.4-12.8 12.8v198.4c0 6.4 6.4 12.8 12.8 12.8zM496 384H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v336c0 17.67 14.33 32 32 32h464c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z"/></svg>Using a package called **dplyr** we will copy what we might normally do with a pivot table to summarise our data
+
+--
+
+.pull-left[
+
+```r
+data &lt;- data %&gt;%
+    mutate(date=as.Date(as.character(date), 
+                  format = "%d/%m/%Y")) %&gt;%
+    group_by(date, Name) %&gt;%
+        summarize(
+          Duration=sum(total_duration)/60,
+          Speed_mmin=mean(meterage_per_minute),
+          Distance=sum(total_distance),
+          HSR=sum(velocity_band6_total_distance),
+          Max_velocity=max(max_vel)) %&gt;%
+           
+      mutate(Duration=round(Duration,0),
+          Speed_mmin=round(Speed_mmin,0),
+          Distance=round(Distance,0),
+          HSR=round(HSR,0), 
+          Max_velocity=round(Max_velocity,1))
+```
+]
+
+--
+
+.pull-right[
+
+```
+## # A tibble: 5 x 7
+## # Groups:   date [1]
+##   date       Name       Duration Speed_mmin Distance   HSR Max_velocity
+##   &lt;date&gt;     &lt;chr&gt;         &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;
+## 1 2021-03-21 Athlete 13      100        116    11582   100         27.9
+## 2 2021-03-21 Athlete 14      101        138    13994   337         29.4
+## 3 2021-03-21 Athlete 2        87        149    12902    61         26.7
+## 4 2021-03-21 Athlete 20       90        127    11403    20         26.2
+## 5 2021-03-21 Athlete 23       73        139    10120   272         31.3
+```
+]
+
+---
+# Sparklines
+
+.pull-left[
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M496 384H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v336c0 17.67 14.33 32 32 32h464c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16zM464 96H345.94c-21.38 0-32.09 25.85-16.97 40.97l32.4 32.4L288 242.75l-73.37-73.37c-12.5-12.5-32.76-12.5-45.25 0l-68.69 68.69c-6.25 6.25-6.25 16.38 0 22.63l22.62 22.62c6.25 6.25 16.38 6.25 22.63 0L192 237.25l73.37 73.37c12.5 12.5 32.76 12.5 45.25 0l96-96 32.4 32.4c15.12 15.12 40.97 4.41 40.97-16.97V112c.01-8.84-7.15-16-15.99-16z"/></svg> Sparklines are HTML widgets that can summarise data nicely in reports
+&lt;br&gt;&lt;br&gt;
+I think of them as 'mini graphs' 🤷
+
+&lt;img src="assets/sparklinetable.png" width="30%" /&gt;
+]
+
+--
+.pull-right[
+
+
+```r
+sparklines &lt;- data %&gt;%
+      group_by(Name) %&gt;% 
+      arrange(date) %&gt;%
+  summarize(
+    Distance_SPK = spk_chr(
+      round(Distance, 0),
+        type='line',
+        fillColor = "transparent",
+        RangeMin = mean(Distance)-(sd(Distance)*0.5),
+        RangeMax = mean(Distance)+(sd(Distance)*0.5),
+        chartRangeClip = T,
+        chartRangeMinX = 1,
+        chartRangeMinX = 60,
+        width = 100, height = 15),
+    Duration_SPK = spk_chr(
+        round(Duration, 0),
+        type='line',
+        fillColor = "transparent",
+        RangeMin = mean(Duration)-(sd(Duration)*0.5),
+        RangeMax = mean(Duration)+(sd(Duration)*0.5),
+        chartRangeClip = T,
+        width = 100,height = 15))
+```
+
+
+
+]
+
+
+---
+
+# Merge dataframes
+
+<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"/></svg> First we need to merge the summary data and sparklines together using the **dplyr** package
+
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M487.976 0H24.028C2.71 0-8.047 25.866 7.058 40.971L192 225.941V432c0 7.831 3.821 15.17 10.237 19.662l80 55.98C298.02 518.69 320 507.493 320 487.98V225.941l184.947-184.97C520.021 25.896 509.338 0 487.976 0z"/></svg> Then filter by the date we want to report on
+--
+
+
+```r
+combined &lt;- full_join(data, sparklines, by = c("Name")) %&gt;%
+                      filter(date == "2021-05-29")
+
+head(combined, n=5)
+```
+
+```
+## # A tibble: 5 x 10
+## # Groups:   date [1]
+##   date       Name   Duration Speed_mmin Distance   HSR Max_velocity Distance_SPK
+##   &lt;date&gt;     &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt; &lt;html&gt;      
+## 1 2021-05-29 Athle~       14        143     2062   173         30.7 "&lt;span id=\~
+## 2 2021-05-29 Athle~      114        134    15259   359         32.1 "&lt;span id=\~
+## 3 2021-05-29 Athle~       97        123    11920   155         32.3 "&lt;span id=\~
+## 4 2021-05-29 Athle~       92        132    12187    86         28.1 "&lt;span id=\~
+## 5 2021-05-29 Athle~       86        141    12142    51         28.6 "&lt;span id=\~
+## # ... with 2 more variables: Duration_SPK &lt;html&gt;, Speed_mmin_SPK &lt;html&gt;
+```
+
+---
+
+# GPS report - Version 1
+
+First we will create a basic table with limited formatting using the **formattable** package
+
+--
+
+
+
+```r
+library(formattable)
+combined &lt;- combined[c(2:10)]
+formattable(combined, align = c('c'),
+            list(Name = formatter("span", style = ~style(color ="black"), 
+                                  options =list(dom ='tp', pageLength = 10, bPaginate=FALSE))))
+```
+
+
+&lt;table class="table table-condensed"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:center;"&gt; Name &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Duration &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Speed_mmin &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Distance &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; HSR &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Max_velocity &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Distance_SPK &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Duration_SPK &lt;/th&gt;
+   &lt;th style="text-align:center;"&gt; Speed_mmin_SPK &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span style="color: black" options="tp"&gt;Athlete 11&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 143 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 2062 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 173 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 30.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-e5eff55ba8badc2b7664" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-e5eff55ba8badc2b7664"&gt;{"x":{"values":[15788,13578,14485,12038,13788,12640,2062],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":9768.63083521408,"normalRangeMax":14339.6548790716,"chartRangeClip":true,"chartRangeMinX":1,"chartRangeMinX.1":60,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-7579b4ebf75e01696bf8" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-7579b4ebf75e01696bf8"&gt;{"x":{"values":[120,102,108,92,107,97,14],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":73.7842684224613,"normalRangeMax":109.072874434682,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-794874fe02b6c8077e68" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-794874fe02b6c8077e68"&gt;{"x":{"values":[132,134,134,130,129,130,143],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":130.75489128205,"normalRangeMax":135.530823003664,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span style="color: black" options="10"&gt;Athlete 14&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 114 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 134 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 15259 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 359 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 32.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-d4c271dc1e3a80807d6a" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-d4c271dc1e3a80807d6a"&gt;{"x":{"values":[13994,14273,14253,15225,16513,15746,14731,14435,14855,15339,15259],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":14592.3448889095,"normalRangeMax":15339.1096565451,"chartRangeClip":true,"chartRangeMinX":1,"chartRangeMinX.1":60,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-4b54f0c6cb2d45a8f7f1" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-4b54f0c6cb2d45a8f7f1"&gt;{"x":{"values":[101,106,105,114,127,119,107,103,114,113,114],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":107.335923085627,"normalRangeMax":115.02771327801,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-72447a1edf28d879fdea" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-72447a1edf28d879fdea"&gt;{"x":{"values":[138,135,135,134,130,132,138,140,130,136,134],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":133.113412307489,"normalRangeMax":136.341133147057,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span style="color: black" options="FALSE"&gt;Athlete 15&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 97 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 123 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 11920 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 155 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 32.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-efc36bdde2a7d788957c" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-efc36bdde2a7d788957c"&gt;{"x":{"values":[13744,12661,11263,12582,12627,11920],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":12050.4738213269,"normalRangeMax":12881.8595120064,"chartRangeClip":true,"chartRangeMinX":1,"chartRangeMinX.1":60,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-b038fb61257d6d0c4854" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-b038fb61257d6d0c4854"&gt;{"x":{"values":[116,104,98,101,105,97],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":100.053987811977,"normalRangeMax":106.946012188023,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-a0138090bc1136443369" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-a0138090bc1136443369"&gt;{"x":{"values":[119,121,115,124,120,123],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":118.731251354574,"normalRangeMax":121.935415312093,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span style="color: black" options="tp"&gt;Athlete 17&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 92 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 132 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 12187 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 86 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 28.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-5495d6f720c0d41f42ac" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-5495d6f720c0d41f42ac"&gt;{"x":{"values":[6464,4408,12454,12258,11141,13127,11057,12187],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":8798.23907219674,"normalRangeMax":11975.7609278033,"chartRangeClip":true,"chartRangeMinX":1,"chartRangeMinX.1":60,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-89f6b7e21f4c1b5c87e6" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-89f6b7e21f4c1b5c87e6"&gt;{"x":{"values":[46,29,90,90,81,104,86,92],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":64.358280620048,"normalRangeMax":90.141719379952,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-697172539e4c95111a35" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-697172539e4c95111a35"&gt;{"x":{"values":[140,151,138,136,138,126,128,132],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":132.211310655441,"normalRangeMax":140.038689344559,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span style="color: black" options="10"&gt;Athlete 2 &lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 86 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 141 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 12142 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 51 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 28.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-ad20d119c6188575c319" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-ad20d119c6188575c319"&gt;{"x":{"values":[12902,15387,13397,15234,13858,12947,12446,13160,13867,12512,12142],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":12904.5964797375,"normalRangeMax":13977.5853384443,"chartRangeClip":true,"chartRangeMinX":1,"chartRangeMinX.1":60,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-fe4a37ff2cfeca1b9b17" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-fe4a37ff2cfeca1b9b17"&gt;{"x":{"values":[87,107,103,108,102,97,101,90,101,91,86],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":93.6188552765984,"normalRangeMax":101.472053814311,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-936a43d07611ded90a65" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-936a43d07611ded90a65"&gt;{"x":{"values":[149,144,130,142,138,134,123,147,137,138,141],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":134.690480920271,"normalRangeMax":142.21860998882,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span style="color: black" options="FALSE"&gt;Athlete 20&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 99 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 127 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 12625 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 27.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-b8b9663cb5257412a318" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-b8b9663cb5257412a318"&gt;{"x":{"values":[11403,11251,12038,13137,12795,12922,11911,12592,11564,13057,12625],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":11954.4699292154,"normalRangeMax":12644.6209798755,"chartRangeClip":true,"chartRangeMinX":1,"chartRangeMinX.1":60,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-7ac630537ad043460a1b" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-7ac630537ad043460a1b"&gt;{"x":{"values":[90,92,99,105,112,104,96,93,91,105,99],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":95.176984646772,"normalRangeMax":102.277560807773,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-3c2cec281fa0d7c41d54" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-3c2cec281fa0d7c41d54"&gt;{"x":{"values":[127,123,121,125,114,124,124,135,127,124,127],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":122.113738740816,"normalRangeMax":127.158988531911,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span style="color: black" options="tp"&gt;Athlete 23&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 97 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 132 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 12812 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 224 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 27.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-adfea67be60b3ce36c76" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-adfea67be60b3ce36c76"&gt;{"x":{"values":[10120,7769,4507,13366,13494,14028,11321,13667,14128,12812],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":9923.22602579947,"normalRangeMax":13119.1739742005,"chartRangeClip":true,"chartRangeMinX":1,"chartRangeMinX.1":60,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-0cb08358d82ed569635a" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-0cb08358d82ed569635a"&gt;{"x":{"values":[73,56,32,103,101,105,81,101,108,97],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":73.1013889654454,"normalRangeMax":98.2986110345546,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-521669b816338c42be98" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-521669b816338c42be98"&gt;{"x":{"values":[139,138,142,130,134,134,139,135,131,132],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":133.425158234187,"normalRangeMax":137.374841765813,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span style="color: black" options="10"&gt;Athlete 26&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 105 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 107 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 11310 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 66 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 30.1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-a88fa08469540716dace" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-a88fa08469540716dace"&gt;{"x":{"values":[11285,12306,12407,12789,13584,11073,11630,11797,11932,12377,11310],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":11672.3710758171,"normalRangeMax":12416.7198332738,"chartRangeClip":true,"chartRangeMinX":1,"chartRangeMinX.1":60,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-286b0770097f9332ce92" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-286b0770097f9332ce92"&gt;{"x":{"values":[103,117,119,123,122,104,109,109,108,113,105],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":108.380607785829,"normalRangeMax":115.619392214171,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-41bdf0554e114030eba9" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-41bdf0554e114030eba9"&gt;{"x":{"values":[110,105,104,104,112,107,107,108,110,109,107],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":106.253873414367,"normalRangeMax":108.837035676542,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span style="color: black" options="FALSE"&gt;Athlete 27&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 26 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 133 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 3511 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 53 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 28.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-7ec15904a7c3b2390427" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-7ec15904a7c3b2390427"&gt;{"x":{"values":[11505,13176,11646,5886,11868,12084,12872,12455,11604,3511],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":9041.29601070161,"normalRangeMax":12280.1039892984,"chartRangeClip":true,"chartRangeMinX":1,"chartRangeMinX.1":60,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-2ecc33ad40e2e96651a3" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-2ecc33ad40e2e96651a3"&gt;{"x":{"values":[101,108,99,49,109,100,101,108,99,26],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":75.7697505292423,"normalRangeMax":104.230249470758,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-9fd2379331631b29aa42" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-9fd2379331631b29aa42"&gt;{"x":{"values":[114,122,118,121,109,121,127,116,117,133],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":116.426903829154,"normalRangeMax":123.173096170846,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span style="color: black" options="tp"&gt;Athlete 28&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 112 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 122 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 13579 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 236 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 28.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-bf1a34bae497f8d0021a" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-bf1a34bae497f8d0021a"&gt;{"x":{"values":[12498,13583,13864,14485,15037,14073,12365,13150,13368,14441,13579],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":13264.9028774631,"normalRangeMax":14088.3698498096,"chartRangeClip":true,"chartRangeMinX":1,"chartRangeMinX.1":60,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-a22457ad10a311e510d2" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-a22457ad10a311e510d2"&gt;{"x":{"values":[91,102,104,110,116,108,93,99,104,116,112],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":100.780995378054,"normalRangeMax":109.219004621946,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-53f658765502e7652c1c" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-53f658765502e7652c1c"&gt;{"x":{"values":[138,133,134,132,130,131,133,133,128,125,122],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":128.595366240832,"normalRangeMax":133.040997395532,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span style="color: black" options="10"&gt;Athlete 3 &lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 105 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 136 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 14254 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 130 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 29.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-65519adb5b08a08a7e48" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-65519adb5b08a08a7e48"&gt;{"x":{"values":[12347,13177,14254],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":12781.2521861069,"normalRangeMax":13737.4144805598,"chartRangeClip":true,"chartRangeMinX":1,"chartRangeMinX.1":60,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-cf8dbac66f1c4a6c16cf" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-cf8dbac66f1c4a6c16cf"&gt;{"x":{"values":[96,100,105],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":98.0787084569219,"normalRangeMax":102.587958209745,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-d162fc46fba3329094ce" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-d162fc46fba3329094ce"&gt;{"x":{"values":[128,132,136],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":130,"normalRangeMax":134,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span style="color: black" options="FALSE"&gt;Athlete 30&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 108 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 135 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 14568 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 548 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 35.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-01ef5f14320ae2cac9c6" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-01ef5f14320ae2cac9c6"&gt;{"x":{"values":[13119,12377,13275,15047,14672,13715,12060,13362,14181,14952,14568],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":13248.4600776156,"normalRangeMax":14265.7217405662,"chartRangeClip":true,"chartRangeMinX":1,"chartRangeMinX.1":60,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-b29e1e9165bc7c7782a1" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-b29e1e9165bc7c7782a1"&gt;{"x":{"values":[94,88,98,110,112,101,85,94,107,112,108],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":95.9714397071438,"normalRangeMax":105.66492392922,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-bd31eabb5fa6c36bb0c8" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-bd31eabb5fa6c36bb0c8"&gt;{"x":{"values":[140,140,136,137,132,136,141,142,133,133,135],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":135.074361560555,"normalRangeMax":138.562002075808,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span style="color: black" options="tp"&gt;Athlete 32&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 112 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 139 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 15539 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 399 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 30.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-9b43ef1848745401953a" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-9b43ef1848745401953a"&gt;{"x":{"values":[13203,14522,11999,15693,15305,14211,14477,12834,14669,15539],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":13636.7542204381,"normalRangeMax":14853.6457795619,"chartRangeClip":true,"chartRangeMinX":1,"chartRangeMinX.1":60,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-15959dfe3f2632dbfdfa" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-15959dfe3f2632dbfdfa"&gt;{"x":{"values":[96,105,90,119,117,103,104,93,111,112],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":100.05586767527,"normalRangeMax":109.94413232473,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-29ab0c257ec5421f570b" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-29ab0c257ec5421f570b"&gt;{"x":{"values":[138,139,133,132,132,137,140,138,132,139],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":134.333333333333,"normalRangeMax":137.666666666667,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span style="color: black" options="10"&gt;Athlete 37&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 105 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 132 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 13953 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 300 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 32.3 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-fb47d9bc0dc292b3de62" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-fb47d9bc0dc292b3de62"&gt;{"x":{"values":[11451,13563,13783,14861,15244,13930,13749,12628,13533,14477,13953],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":13225.8168624553,"normalRangeMax":14260.0013193628,"chartRangeClip":true,"chartRangeMinX":1,"chartRangeMinX.1":60,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-1d70c1382d7e4db0bb28" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-1d70c1382d7e4db0bb28"&gt;{"x":{"values":[83,103,103,117,117,106,103,97,107,110,105],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":99.9551633240894,"normalRangeMax":109.317563948638,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-0a46a6625096a8c0a6d8" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-0a46a6625096a8c0a6d8"&gt;{"x":{"values":[138,132,133,127,131,132,134,130,126,132,132],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":129.927374875543,"normalRangeMax":133.163534215366,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span style="color: black" options="FALSE"&gt;Athlete 38&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 101 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 132 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 13280 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 157 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 29.2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-b72ec365bb53c499b7a3" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-b72ec365bb53c499b7a3"&gt;{"x":{"values":[12241,13954,14505,15327,13890,13706,12869,13475,12367,12266,13280],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":12954.9551652704,"normalRangeMax":13932.3175620023,"chartRangeClip":true,"chartRangeMinX":1,"chartRangeMinX.1":60,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-7ec63b1a18fc1bc4e173" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-7ec63b1a18fc1bc4e173"&gt;{"x":{"values":[93,108,111,116,105,108,96,105,96,104,101],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":100.427320199706,"normalRangeMax":107.390861618475,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-495fe20ea42cbc8c0f12" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-495fe20ea42cbc8c0f12"&gt;{"x":{"values":[132,129,130,132,132,127,134,129,129,118,132],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":127.305549917514,"normalRangeMax":131.603540991577,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span style="color: black" options="tp"&gt;Athlete 39&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 92 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 132 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 12114 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 256 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 29.2 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-b9ce559216dd4d10480c" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-b9ce559216dd4d10480c"&gt;{"x":{"values":[10509,12114],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":10744.0468080978,"normalRangeMax":11878.9531919022,"chartRangeClip":true,"chartRangeMinX":1,"chartRangeMinX.1":60,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-35c2feb8b8c7dcdba998" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-35c2feb8b8c7dcdba998"&gt;{"x":{"values":[83,92],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":84.3180194846605,"normalRangeMax":90.6819805153395,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-b2bd9895c9454dd3f2ea" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-b2bd9895c9454dd3f2ea"&gt;{"x":{"values":[127,132],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":127.732233047034,"normalRangeMax":131.267766952966,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span style="color: black" options="10"&gt;Athlete 4 &lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 109 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 110 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 11956 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 28 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 26.0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-99759473b969e5946bdd" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-99759473b969e5946bdd"&gt;{"x":{"values":[12133,13762,13052,11999,11912,11632,12141,12805,12673,11956],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":12079.7927533708,"normalRangeMax":12733.2072466292,"chartRangeClip":true,"chartRangeMinX":1,"chartRangeMinX.1":60,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-be8f4a4f9fafc0b1bfbc" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-be8f4a4f9fafc0b1bfbc"&gt;{"x":{"values":[109,120,118,107,106,107,104,118,126,109],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":108.679187663366,"normalRangeMax":116.120812336634,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-dd32777db0a1ff50b1de" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-dd32777db0a1ff50b1de"&gt;{"x":{"values":[112,115,110,112,113,109,117,109,101,110],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":108.642326355642,"normalRangeMax":112.957673644358,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span style="color: black" options="FALSE"&gt;Athlete 41&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 106 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 138 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 14633 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 469 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 31.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-1358fac20e41cce15025" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-1358fac20e41cce15025"&gt;{"x":{"values":[13000,12280,11236,13889,11920,5017,13810,14633],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":10458.8817086047,"normalRangeMax":13487.3682913953,"chartRangeClip":true,"chartRangeMinX":1,"chartRangeMinX.1":60,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-f36f86375f335c8d0e09" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-f36f86375f335c8d0e09"&gt;{"x":{"values":[96,92,79,105,88,31,105,106],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":75.3410458596567,"normalRangeMax":100.158954140343,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-a2c77c8296fabde603e4" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-a2c77c8296fabde603e4"&gt;{"x":{"values":[136,134,143,132,135,164,131,138],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":133.763513665569,"normalRangeMax":144.486486334431,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span style="color: black" options="tp"&gt;Athlete 43&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 92 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 126 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 11622 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 21.8 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-bf0a99a81c988f5b0913" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-bf0a99a81c988f5b0913"&gt;{"x":{"values":[11489,11622],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":11508.4773990511,"normalRangeMax":11602.5226009489,"chartRangeClip":true,"chartRangeMinX":1,"chartRangeMinX.1":60,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-64dcd349b3f7d7e49c20" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-64dcd349b3f7d7e49c20"&gt;{"x":{"values":[97,92],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":92.7322330470336,"normalRangeMax":96.2677669529664,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-f96e54a38bb440868e92" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-f96e54a38bb440868e92"&gt;{"x":{"values":[119,126],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":120.025126265847,"normalRangeMax":124.974873734153,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span style="color: black" options="10"&gt;Athlete 44&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 98 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 138 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 13462 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 308 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 30.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-3d4c33fb605044e398ef" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-3d4c33fb605044e398ef"&gt;{"x":{"values":[12406,11732,12619,14265,15069,12998,13361,13332,13262,12952,13462],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":12777.2904297058,"normalRangeMax":13669.6186612032,"chartRangeClip":true,"chartRangeMinX":1,"chartRangeMinX.1":60,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-cbf58237646a85e85ec4" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-cbf58237646a85e85ec4"&gt;{"x":{"values":[88,87,96,109,108,93,94,96,96,95,98],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":92.9192733799141,"normalRangeMax":99.8079993473587,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-02d8062df79f4d40d703" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-02d8062df79f4d40d703"&gt;{"x":{"values":[141,134,132,130,139,140,142,139,138,136,138],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":135.286848764939,"normalRangeMax":139.076787598698,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span style="color: black" options="FALSE"&gt;Athlete 48&lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 133 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 12631 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 167 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 30.5 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-2e230478529a9bb18767" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-2e230478529a9bb18767"&gt;{"x":{"values":[12424,11096,11776,14314,14313,12300,11152,10970,12538,12460,12631],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":11789.3189664271,"normalRangeMax":12933.2264881184,"chartRangeClip":true,"chartRangeMinX":1,"chartRangeMinX.1":60,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-d816aedf9adee6db49d5" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-d816aedf9adee6db49d5"&gt;{"x":{"values":[99,89,90,109,110,94,84,94,101,99,95],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":92.7267045858027,"normalRangeMax":100.727840868743,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-df2f4a6595a947de3b6e" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-df2f4a6595a947de3b6e"&gt;{"x":{"values":[125,124,131,131,131,131,132,117,124,126,133],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":125.266674130479,"normalRangeMax":130.187871324067,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span style="color: black" options="tp"&gt;Athlete 7 &lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 80 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 126 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 10146 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 151 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 31.6 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-e7b464b90ca6cfb88ccd" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-e7b464b90ca6cfb88ccd"&gt;{"x":{"values":[12816,11528,10146],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":10829.0287907689,"normalRangeMax":12164.3045425645,"chartRangeClip":true,"chartRangeMinX":1,"chartRangeMinX.1":60,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-ab89c6224749fbd6292f" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-ab89c6224749fbd6292f"&gt;{"x":{"values":[97,84,80],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":82.5559027913422,"normalRangeMax":91.4440972086578,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-b8946af20c0bf2ed3e12" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-b8946af20c0bf2ed3e12"&gt;{"x":{"values":[133,137,126],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":129.216117818585,"normalRangeMax":134.783882181415,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span style="color: black" options="10"&gt;Athlete 8 &lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 104 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 136 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 14172 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 123 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 27.9 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-95621642cca54caf9a26" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-95621642cca54caf9a26"&gt;{"x":{"values":[13293,12506,14044,11725,11226,12765,11905,13498,14172],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":12271.805720732,"normalRangeMax":13313.5276126014,"chartRangeClip":true,"chartRangeMinX":1,"chartRangeMinX.1":60,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-e8169713c48fe281a011" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-e8169713c48fe281a011"&gt;{"x":{"values":[104,95,116,88,81,91,87,101,104],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":90.890448069064,"normalRangeMax":101.776218597603,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-cea28d22a95bad99a91b" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-cea28d22a95bad99a91b"&gt;{"x":{"values":[127,132,121,134,138,140,136,134,136],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":130.180193545266,"normalRangeMax":136.042028676956,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span style="color: black" options="FALSE"&gt;Athlete 9 &lt;/span&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 117 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 116 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 13627 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 54 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 29.7 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-be86140c60ad302d577b" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-be86140c60ad302d577b"&gt;{"x":{"values":[11876,14013,13358,14210,14204,13443,12816,12681,11514,14292,13627],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":12798.9259603372,"normalRangeMax":13752.7104032992,"chartRangeClip":true,"chartRangeMinX":1,"chartRangeMinX.1":60,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-9ea7648f111b550da59a" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-9ea7648f111b550da59a"&gt;{"x":{"values":[106,117,122,125,128,112,112,114,103,128,117],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":112.525541482352,"normalRangeMax":120.929003972194,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; &lt;span id="htmlwidget-54c41ef9e256908073b8" class="sparkline html-widget"&gt;&lt;/span&gt;
+&lt;script type="application/json" data-for="htmlwidget-54c41ef9e256908073b8"&gt;{"x":{"values":[112,120,109,113,111,120,114,112,112,111,116],"options":{"type":"line","fillColor":"transparent","spotColor":false,"normalRangeMin":111.82980991072,"normalRangeMax":115.442917362007,"chartRangeClip":true,"height":15,"width":100},"width":100,"height":15},"evals":[],"jsHooks":[]}&lt;/script&gt; &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+---
+# GPS Report 2
+
+
+
+```r
+combined &lt;- combined[c(1,3,10,4,11,5,9,7)] %&gt;%
+    filter(Duration &gt; 98) %&gt;%
+        ungroup() %&gt;%
+        arrange(desc(Duration)) %&gt;%  
+       
+formattable::formattable(
+        list(
+            Duration = color_tile("white", "indianred"),
+            Speed_mmin = color_tile("white", "indianred"),
+            Distance = color_tile("white", "indianred"),
+            Max_velocity = color_tile("white", "lightgreen"))) %&gt;%
+  
+formattable::as.datatable(rownames = FALSE, 
+              class = 'white-space: nowrap',
+              colnames = c("Name","Duration (mins)","Duration trend","Speed (m.min) ","Speed trend",
+                           " Distance (m)","Distance trend","Max speed (m.s)"), 
+              options = list(dom = 'tp', 
+                        list(pageLength = 20, bPaginate=FALSE,      
+                            columnDefs = list(className = 'dt-center', targets = "_all")),
+                    fnDrawCallback = 
+                    htmlwidgets::
+                    JS('function(){HTMLWidgets.staticRender();}')) %&gt;% 
+      spk_add_deps() %&gt;%
+      formatStyle(c(1,3,5,7), `border-right` = "solid 1px", `border-color` = "darkgrey")
+```
+
+---
+
+# GPS Report 2 Output
+
+<div id="htmlwidget-a5d17731445959292080" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a5d17731445959292080">{"x":{"filter":"none","data":[["Athlete 9 ","Athlete 14","Athlete 28","Athlete 32","Athlete 4 ","Athlete 30","Athlete 41","Athlete 26","Athlete 3 ","Athlete 37","Athlete 8 ","Athlete 38","Athlete 20"],["<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #cd5c5c\">117<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #d57777\">114<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #da8989\">112<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #da8989\">112<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #e3a4a4\">109<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #e6adad\">108<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #ebbfbf\">106<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #eec8c8\">105<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #eec8c8\">105<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #eec8c8\">105<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #f1d1d1\">104<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #f9ecec\">101<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff\">99<\/span> "],["<span id=\"htmlwidget-9a46126edca3a28f2926\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-9a46126edca3a28f2926\">{\"x\":{\"values\":[106,117,122,125,128,112,112,114,103,128,117],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":112.525541482352,\"normalRangeMax\":120.929003972194,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-d6f48eb47c8c00e5e202\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-d6f48eb47c8c00e5e202\">{\"x\":{\"values\":[101,106,105,114,127,119,107,103,114,113,114],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":107.335923085627,\"normalRangeMax\":115.02771327801,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script> ","<span id=\"htmlwidget-eee72635ccc88253ee52\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-eee72635ccc88253ee52\">{\"x\":{\"values\":[91,102,104,110,116,108,93,99,104,116,112],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":100.780995378054,\"normalRangeMax\":109.219004621946,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>   ","<span id=\"htmlwidget-762545b7518b3bdc2c3a\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-762545b7518b3bdc2c3a\">{\"x\":{\"values\":[96,105,90,119,117,103,104,93,111,112],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":100.05586767527,\"normalRangeMax\":109.94413232473,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>         ","<span id=\"htmlwidget-640f427866fac1397430\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-640f427866fac1397430\">{\"x\":{\"values\":[109,120,118,107,106,107,104,118,126,109],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":108.679187663366,\"normalRangeMax\":116.120812336634,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>    ","<span id=\"htmlwidget-b1dae460e7523aac3174\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-b1dae460e7523aac3174\">{\"x\":{\"values\":[94,88,98,110,112,101,85,94,107,112,108],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":95.9714397071438,\"normalRangeMax\":105.66492392922,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>      ","<span id=\"htmlwidget-9c74961d00298406bda3\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-9c74961d00298406bda3\">{\"x\":{\"values\":[96,92,79,105,88,31,105,106],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":75.3410458596567,\"normalRangeMax\":100.158954140343,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>                 ","<span id=\"htmlwidget-9ebbfc4bd8304cd7b6be\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-9ebbfc4bd8304cd7b6be\">{\"x\":{\"values\":[103,117,119,123,122,104,109,109,108,113,105],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":108.380607785829,\"normalRangeMax\":115.619392214171,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-799d72a07583f13e4489\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-799d72a07583f13e4489\">{\"x\":{\"values\":[96,100,105],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":98.0787084569219,\"normalRangeMax\":102.587958209745,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>                                 ","<span id=\"htmlwidget-36d1479d252e6b09c2fc\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-36d1479d252e6b09c2fc\">{\"x\":{\"values\":[83,103,103,117,117,106,103,97,107,110,105],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":99.9551633240894,\"normalRangeMax\":109.317563948638,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>  ","<span id=\"htmlwidget-6ca87a40cfc59b59bb26\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-6ca87a40cfc59b59bb26\">{\"x\":{\"values\":[104,95,116,88,81,91,87,101,104],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":90.890448069064,\"normalRangeMax\":101.776218597603,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>              ","<span id=\"htmlwidget-697d3f11b99348ee87ea\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-697d3f11b99348ee87ea\">{\"x\":{\"values\":[93,108,111,116,105,108,96,105,96,104,101],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":100.427320199706,\"normalRangeMax\":107.390861618475,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>   ","<span id=\"htmlwidget-7f23298c830b0bf50d12\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-7f23298c830b0bf50d12\">{\"x\":{\"values\":[90,92,99,105,112,104,96,93,91,105,99],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":95.176984646772,\"normalRangeMax\":102.277560807773,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>        "],["<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #f0d1d1\">116<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #d47575\">134<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #e7b2b2\">122<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #cd5c5c\">139<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #faefef\">110<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #d37070\">135<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #ce6161\">138<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff\">107<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #d16b6b\">136<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #d77f7f\">132<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #d16b6b\">136<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #d77f7f\">132<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #df9999\">127<\/span>"],["<span id=\"htmlwidget-3ce60e157b7175323ed4\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-3ce60e157b7175323ed4\">{\"x\":{\"values\":[112,120,109,113,111,120,114,112,112,111,116],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":111.82980991072,\"normalRangeMax\":115.442917362007,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script> ","<span id=\"htmlwidget-8a2062ca993163619263\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-8a2062ca993163619263\">{\"x\":{\"values\":[138,135,135,134,130,132,138,140,130,136,134],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":133.113412307489,\"normalRangeMax\":136.341133147057,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-f9f69dd9fea13d9062f1\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-f9f69dd9fea13d9062f1\">{\"x\":{\"values\":[138,133,134,132,130,131,133,133,128,125,122],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":128.595366240832,\"normalRangeMax\":133.040997395532,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-afa68201c383c4e9345d\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-afa68201c383c4e9345d\">{\"x\":{\"values\":[138,139,133,132,132,137,140,138,132,139],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":134.333333333333,\"normalRangeMax\":137.666666666667,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>    ","<span id=\"htmlwidget-b7eba8b9a05e966ae7b0\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-b7eba8b9a05e966ae7b0\">{\"x\":{\"values\":[112,115,110,112,113,109,117,109,101,110],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":108.642326355642,\"normalRangeMax\":112.957673644358,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>    ","<span id=\"htmlwidget-c5f2cc903f36551b3e26\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-c5f2cc903f36551b3e26\">{\"x\":{\"values\":[140,140,136,137,132,136,141,142,133,133,135],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":135.074361560555,\"normalRangeMax\":138.562002075808,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-5f0d8778e9986be785ed\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-5f0d8778e9986be785ed\">{\"x\":{\"values\":[136,134,143,132,135,164,131,138],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":133.763513665569,\"normalRangeMax\":144.486486334431,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>            ","<span id=\"htmlwidget-04d6a9a5d4b9f88cece6\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-04d6a9a5d4b9f88cece6\">{\"x\":{\"values\":[110,105,104,104,112,107,107,108,110,109,107],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":106.253873414367,\"normalRangeMax\":108.837035676542,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-595070b99228d7457181\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-595070b99228d7457181\">{\"x\":{\"values\":[128,132,136],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":130,\"normalRangeMax\":134,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>                                                          ","<span id=\"htmlwidget-6d7503548f849e150bc9\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-6d7503548f849e150bc9\">{\"x\":{\"values\":[138,132,133,127,131,132,134,130,126,132,132],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":129.927374875543,\"normalRangeMax\":133.163534215366,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-9788efbfba9e7a1ced7a\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-9788efbfba9e7a1ced7a\">{\"x\":{\"values\":[127,132,121,134,138,140,136,134,136],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":130.180193545266,\"normalRangeMax\":136.042028676956,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>        ","<span id=\"htmlwidget-bea445e29d72e731a1f2\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-bea445e29d72e731a1f2\">{\"x\":{\"values\":[132,129,130,132,132,127,134,129,129,118,132],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":127.305549917514,\"normalRangeMax\":131.603540991577,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-4823c80d70e2bbe03a4e\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-4823c80d70e2bbe03a4e\">{\"x\":{\"values\":[127,123,121,125,114,124,124,135,127,124,127],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":122.113738740816,\"normalRangeMax\":127.158988531911,\"chartRangeClip\":true,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>"],["<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #e3a5a5\">13627<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #d06666\">15259<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #e4a7a7\">13579<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #cd5c5c\">15539<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #f7e6e6\">11956<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #d88181\">14568<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #d77e7e\">14633<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff\">11310<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #dc8d8d\">14254<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #df9999\">13953<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #dd9090\">14172<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #e7b3b3\">13280<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #efcccc\">12625<\/span>"],["<span id=\"htmlwidget-54d390510b53dfbacce5\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-54d390510b53dfbacce5\">{\"x\":{\"values\":[11876,14013,13358,14210,14204,13443,12816,12681,11514,14292,13627],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":12798.9259603372,\"normalRangeMax\":13752.7104032992,\"chartRangeClip\":true,\"chartRangeMinX\":1,\"chartRangeMinX.1\":60,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-c295adcad96cc4c67bd6\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-c295adcad96cc4c67bd6\">{\"x\":{\"values\":[13994,14273,14253,15225,16513,15746,14731,14435,14855,15339,15259],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":14592.3448889095,\"normalRangeMax\":15339.1096565451,\"chartRangeClip\":true,\"chartRangeMinX\":1,\"chartRangeMinX.1\":60,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-e40ce287a82a049df612\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-e40ce287a82a049df612\">{\"x\":{\"values\":[12498,13583,13864,14485,15037,14073,12365,13150,13368,14441,13579],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":13264.9028774631,\"normalRangeMax\":14088.3698498096,\"chartRangeClip\":true,\"chartRangeMinX\":1,\"chartRangeMinX.1\":60,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-66c4caa52db8cedc9d7d\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-66c4caa52db8cedc9d7d\">{\"x\":{\"values\":[13203,14522,11999,15693,15305,14211,14477,12834,14669,15539],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":13636.7542204381,\"normalRangeMax\":14853.6457795619,\"chartRangeClip\":true,\"chartRangeMinX\":1,\"chartRangeMinX.1\":60,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>      ","<span id=\"htmlwidget-d56f063c30d92eb68312\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-d56f063c30d92eb68312\">{\"x\":{\"values\":[12133,13762,13052,11999,11912,11632,12141,12805,12673,11956],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":12079.7927533708,\"normalRangeMax\":12733.2072466292,\"chartRangeClip\":true,\"chartRangeMinX\":1,\"chartRangeMinX.1\":60,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>      ","<span id=\"htmlwidget-2912b4bba72853e4d1b8\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-2912b4bba72853e4d1b8\">{\"x\":{\"values\":[13119,12377,13275,15047,14672,13715,12060,13362,14181,14952,14568],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":13248.4600776156,\"normalRangeMax\":14265.7217405662,\"chartRangeClip\":true,\"chartRangeMinX\":1,\"chartRangeMinX.1\":60,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-54c6934950729ab7d4fa\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-54c6934950729ab7d4fa\">{\"x\":{\"values\":[13000,12280,11236,13889,11920,5017,13810,14633],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":10458.8817086047,\"normalRangeMax\":13487.3682913953,\"chartRangeClip\":true,\"chartRangeMinX\":1,\"chartRangeMinX.1\":60,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>                   ","<span id=\"htmlwidget-80b719a5018042255138\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-80b719a5018042255138\">{\"x\":{\"values\":[11285,12306,12407,12789,13584,11073,11630,11797,11932,12377,11310],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":11672.3710758171,\"normalRangeMax\":12416.7198332738,\"chartRangeClip\":true,\"chartRangeMinX\":1,\"chartRangeMinX.1\":60,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-3eba4b50a89704b0ad6b\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-3eba4b50a89704b0ad6b\">{\"x\":{\"values\":[12347,13177,14254],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":12781.2521861069,\"normalRangeMax\":13737.4144805598,\"chartRangeClip\":true,\"chartRangeMinX\":1,\"chartRangeMinX.1\":60,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>                                                ","<span id=\"htmlwidget-cd08cdf56669b5698954\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-cd08cdf56669b5698954\">{\"x\":{\"values\":[11451,13563,13783,14861,15244,13930,13749,12628,13533,14477,13953],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":13225.8168624553,\"normalRangeMax\":14260.0013193628,\"chartRangeClip\":true,\"chartRangeMinX\":1,\"chartRangeMinX.1\":60,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-ca35e68aafbce058bd10\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-ca35e68aafbce058bd10\">{\"x\":{\"values\":[13293,12506,14044,11725,11226,12765,11905,13498,14172],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":12271.805720732,\"normalRangeMax\":13313.5276126014,\"chartRangeClip\":true,\"chartRangeMinX\":1,\"chartRangeMinX.1\":60,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>             ","<span id=\"htmlwidget-8e84f37d56e6c6586950\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-8e84f37d56e6c6586950\">{\"x\":{\"values\":[12241,13954,14505,15327,13890,13706,12869,13475,12367,12266,13280],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":12954.9551652704,\"normalRangeMax\":13932.3175620023,\"chartRangeClip\":true,\"chartRangeMinX\":1,\"chartRangeMinX.1\":60,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>","<span id=\"htmlwidget-274f2aa7b1f905f97cba\" class=\"sparkline html-widget\"><\/span>\n<script type=\"application/json\" data-for=\"htmlwidget-274f2aa7b1f905f97cba\">{\"x\":{\"values\":[11403,11251,12038,13137,12795,12922,11911,12592,11564,13057,12625],\"options\":{\"type\":\"line\",\"fillColor\":\"transparent\",\"spotColor\":false,\"normalRangeMin\":11954.4699292154,\"normalRangeMax\":12644.6209798755,\"chartRangeClip\":true,\"chartRangeMinX\":1,\"chartRangeMinX.1\":60,\"height\":15,\"width\":100},\"width\":100,\"height\":15},\"evals\":[],\"jsHooks\":[]}<\/script>"],["<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #d7f8d7\">8.2<\/span> ","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #bbf4bb\">8.9<\/span> ","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #e3fae3\">7.9<\/span> ","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #cff7cf\">8.4<\/span> ","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff\">7.2<\/span> ","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #90ee90\">10.0<\/span>","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #bff5bf\">8.8<\/span> ","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #cff7cf\">8.4<\/span> ","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #dffadf\">8.0<\/span> ","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #b7f4b7\">9.0<\/span> ","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #e7fbe7\">7.8<\/span> ","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #dbf9db\">8.1<\/span> ","<span style=\"display: block; padding: 0 4px; border-radius: 4px; background-color: #effcef\">7.6<\/span> "]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>Name<\/th>\n      <th>Duration (mins)<\/th>\n      <th>Duration trend<\/th>\n      <th>Speed (m.min) <\/th>\n      <th>Speed trend<\/th>\n      <th> Distance (m)<\/th>\n      <th>Distance trend<\/th>\n      <th>Max speed (m.s)<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"tp","bPaginate":false,"columnDefs":[{"className":"dt-center","targets":"_all"}],"fnDrawCallback":"function(){HTMLWidgets.staticRender();}","order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data, displayNum, displayIndex, dataIndex) {\nvar value=data[0]; $(this.api().cell(row, 0).node()).css({'border-right':'solid 1px','border-color':'darkgrey'});\nvar value=data[2]; $(this.api().cell(row, 2).node()).css({'border-right':'solid 1px','border-color':'darkgrey'});\nvar value=data[4]; $(this.api().cell(row, 4).node()).css({'border-right':'solid 1px','border-color':'darkgrey'});\nvar value=data[6]; $(this.api().cell(row, 6).node()).css({'border-right':'solid 1px','border-color':'darkgrey'});\n}"}},"evals":["options.fnDrawCallback","options.rowCallback"],"jsHooks":[]}</script>
+
+
+---
+
+# Useful Resources
+
+catapultR - http://catapultr.catapultsports.com/download_catapultR.html
+
+Mitch Henderson - https://www.mitchhenderson.org/
+
+Alice Sweeting - http://sportstatisticsrsweet.rbind.io/
+
+
+
+
+---
+
+class: center, middle
+
+# Good luck!
+
+### <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg> [heidi.thornton@goldcoastfc.com.au](mailto:heidi.thornton@goldcoastfc.com.au)&lt;br&gt;
+### <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:black;overflow:visible;position:relative;"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg> [heidithornton09](https://twitter.com/heidithornton09)&lt;br&gt;
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
