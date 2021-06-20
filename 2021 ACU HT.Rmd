@@ -602,7 +602,7 @@ as.datatable(rownames = FALSE,
 <br>
 
 ```{r power bi, out.width = '15%', echo = FALSE, fig.align='center'}
-knitr::include_graphics("Images/Power BI.png")
+knitr::include_graphics("Images/pb.png")
 
 ```
 
