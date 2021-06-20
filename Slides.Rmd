@@ -703,7 +703,7 @@ knitr::include_graphics("Images/Int Slope.jpg")
 
 .pull-right[
 ```{r power bi formula, echo = FALSE, out.width='110%'}
-knitr::include_graphics("Images/formula.jpg")
+knitr::include_graphics("Images/Formula.png")
 
 ```
 
