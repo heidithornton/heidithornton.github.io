@@ -195,9 +195,9 @@ devtools::install_bitbucket("catapultsports/catapultr")
 
 ```{r pull sessions working code, message=FALSE, warning=FALSE, include=FALSE}
 # Login
-token <- ofCloudGetToken(sRegion = "APAC", sName = "GoldCoastFC", sPwd = "SunsAFL2021",
-                         sClientID = "TLsJkjQ4Vh3GCNnpKBqzd97A58S2HaebEPrtMUXW", 
-                         sClientSecret = "EYv6CqdzkwGgeWpTK7M2bZytF5JQaBxHPsjmf8AX")
+token <- ofCloudGetToken(sRegion = "APAC", sName = "xxx", sPwd = "xxx",
+                         sClientID = "xxx", 
+                         sClientSecret = "xxx")
 
 # Full list of activities
 activities <- ofCloudGetActivities(token)
@@ -446,9 +446,9 @@ formattable::as.datatable(rownames = FALSE,
 ```{r GPS Report2, echo=FALSE, fig.align='center'}
 
 # Login
-token <- ofCloudGetToken(sRegion = "APAC", sName = "GoldCoastFC", sPwd = "SunsAFL2021",
-                         sClientID = "TLsJkjQ4Vh3GCNnpKBqzd97A58S2HaebEPrtMUXW", 
-                         sClientSecret = "EYv6CqdzkwGgeWpTK7M2bZytF5JQaBxHPsjmf8AX")
+token <- ofCloudGetToken(sRegion = "APAC", sName = "xx", sPwd = "xx",
+                         sClientID = "xx", 
+                         sClientSecret = "xxX")
 
 # Full list of activities
 activities <- ofCloudGetActivities(token)
@@ -633,9 +633,9 @@ magick::image_read_pdf("Images/Drill Intensity Breakdown.pdf", pages = 1)
 --
 
 ```{r power bi pull sessions hidden, message=FALSE, warning=FALSE, include=FALSE}
-token <- ofCloudGetToken(sRegion = "APAC", sName = "GoldCoastFC", sPwd = "SunsAFL2021",
-                         sClientID = "TLsJkjQ4Vh3GCNnpKBqzd97A58S2HaebEPrtMUXW", 
-                         sClientSecret = "EYv6CqdzkwGgeWpTK7M2bZytF5JQaBxHPsjmf8AX")
+token <- ofCloudGetToken(sRegion = "APAC", sName = "xx", sPwd = "xx",
+                         sClientID = "xx", 
+                         sClientSecret = "xx")
 
 activities <- ofCloudGetActivities(token)
 activities <-filter(activities, activities$name=="210609Wed")
