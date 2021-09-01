@@ -1,7 +1,7 @@
 ---
 output:
   xaringan::moon_reader:
-    css: [default, "ACU MHPS 2021/assets/heidi.css", "ACU MHPS 2021/assets/heidi-fonts.css"]
+    css: [default, "heidi.css", "assets/heidi-fonts.css"]
     nature:
       highlightStyle: github
       highlightLines: true
