@@ -97,13 +97,13 @@ a, a > code {
     color: black;
     font-weight: normal;
     font-size: 90%;
-    padding: 5px 5px;
+    padding: 6px 6px;
     text-align: center;
   }
   tbody {
     background-color: white;
     color: black;
-    padding: 3px 3px;
+    padding: 3.5px 3.5px;
     text-align: center;
     font-size: 85%;
   }
