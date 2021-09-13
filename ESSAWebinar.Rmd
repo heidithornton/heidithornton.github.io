@@ -716,6 +716,8 @@ plot <- ggplot(Nordboard1, aes(x = Leg, y=maxForce, fill = Leg, colour = Leg)) +
           geom_boxplot() +
           theme_classic() +
           ylab("Force (N)") +
+          theme(axis.title.y = element_blank()) +
+          theme(panel.spacing = unit(2, "lines")) +
           facet_wrap(~Player, scales = "free")
 
 fig <- ggplotly(plot)
