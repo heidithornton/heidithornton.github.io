@@ -1,7 +1,7 @@
 ---
 output:
   xaringan::moon_reader:
-    css: [default, "Files/Theme.css", "Files/heidi-fonts.css"]
+    css: [default, "Theme.css", "heidi-fonts.css"]
     nature:
       highlightStyle: github
       highlightLines: true
@@ -12,7 +12,7 @@ output:
 
 
 class: title-slide, center
-background-image: url("Images/Front page.png")
+background-image: url("2021 ESSA Webinar/Images/Front page.png")
 background-size: Cover
 
 
@@ -64,7 +64,7 @@ xaringanExtra::use_extra_styles(
 
 class: left
 
-background-image: url("Images/Home.jpg")
+background-image: url("2021 ESSA Webinar/Images/Home.jpg")
 background-position: 100% 50%
 background-size: 40% 65%
 
@@ -176,7 +176,7 @@ And soon enough....
 <br>
 
 ```{r excel stopped, out.width='50%', echo=FALSE, fig.align='center'}
-knitr::include_graphics('Images/ExcelStoppedWorking.png')
+knitr::include_graphics('2021 ESSA Webinar/Images/ExcelStoppedWorking.png')
 ```
 <br>
 
@@ -187,7 +187,7 @@ Credit: Dr Jacquie Tran (ESSA Forum, 2019) and Dr Alice Sweeting (WCSF Workshop,
 ---
 
 class: title-slide, top, hide_logo, inverse
-background-image: url("Images/Knights.jpg")
+background-image: url("2021 ESSA Webinar/Images/Knights.jpg")
 background-size: cover
 
 # Part 1 - R programming
@@ -296,7 +296,7 @@ background-size: cover
 
 .pull-right[
 ```{r project, out.width='100%', echo=FALSE, fig.align='center'}
-knitr::include_graphics("Images/Project.png")
+knitr::include_graphics("2021 ESSA Webinar/Images/Project.png")
 ```
 ]
 
@@ -319,7 +319,7 @@ install.packages("readr")
 
 ```{r working code 1, echo=TRUE, message=FALSE, warning=FALSE}
 library(readr)
-Strength <- read_csv("Files/Strength.csv")
+Strength <- read_csv("2021 ESSA Webinar/Files/Strength.csv")
 
 ```
 
@@ -472,13 +472,13 @@ background-size: 100%
 --
 
 ```{r working code 9, echo=TRUE, message=FALSE, warning=FALSE}
-Nordboard <- read_csv("Files/Nordboard.csv")
+Nordboard <- read_csv("2021 ESSA Webinar/Files/Nordboard.csv")
 head(Nordboard, n=8)
 ```
 
 
 ```{r nordboard, out.width='18%', echo=FALSE, fig.align='right'}
-knitr::include_graphics("Images/NordBoard.png")
+knitr::include_graphics("2021 ESSA Webinar/Images/NordBoard.png")
 ```
 
 ---
@@ -538,7 +538,7 @@ head(Nordboard, n=5)
 <br>
 
 ```{r wide to long, out.width='85%', echo=FALSE, fig.align='center'}
-knitr::include_graphics("Images/Wide to long.png")
+knitr::include_graphics("2021 ESSA Webinar/Images/Wide to long.png")
 ```
 
 ---
@@ -792,7 +792,7 @@ background-size: 100%
 
 
 ```{r power bi, out.width = '18%', echo = FALSE, fig.align='center'}
-knitr::include_graphics("Images/pb.png")
+knitr::include_graphics("2021 ESSA Webinar/Images/pb.png")
 
 ```
 
