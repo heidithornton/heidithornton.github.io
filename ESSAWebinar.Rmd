@@ -625,10 +625,12 @@ ggplot(aes(x=Date, y=value, group=Leg, colour = Leg)) +
 ---
 # Visualise Nordboard data 
 
+# Visualise Nordboard data 
+
 `r fa("align-center", fill = "black")` Show the imbalance between legs
 <br>
 
-```{r imbalance, echo=TRUE, message=FALSE, warning=FALSE}
+```{r imbalance1, echo=TRUE, message=FALSE, warning=FALSE, fig.keep='none'}
 Nordboard %>%
             filter(Player == "Player 10") %>% 
             filter(Variable == "Max Force Imbalance") %>%
@@ -640,13 +642,15 @@ Nordboard %>%
           theme_classic() 
 
 ```
+
 ---
+
 # Visualise Nordboard data 
 
 `r fa("align-center", fill = "black")` Show the imbalance between legs
 <br>
 
-```{r imbalance1, echo=FALSE, fig.align='center', fig.height=4, fig.width=6, fig.retina=1, message=FALSE, warning=FALSE}
+```{r imbalance, echo=FALSE, fig.align='center', fig.height=6, fig.width=12, fig.retina=1, message=FALSE, warning=FALSE}
 Nordboard %>%
             filter(Player == "Player 10") %>% 
             filter(Variable == "Max Force Imbalance") %>%
