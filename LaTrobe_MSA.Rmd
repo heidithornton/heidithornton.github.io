@@ -194,7 +194,7 @@ knitr::include_graphics("https://media.giphy.com/media/HP0JqpBxLLGpO/giphy.gif")
 
 
 .center[
-<img src="2021 La Trobe MSA/Images/Predicting illness.png" width="55%", align="center"/>
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBmRFuY7ftOCGj0gZsTevFDpgErl7Xq1--DA&usqp=CAU" width="55%", align="center"/>
 ]
 
 
