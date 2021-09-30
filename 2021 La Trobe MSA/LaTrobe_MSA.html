@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Presentation.knit</title>
+    <meta charset="utf-8" />
+    <script src="Presentation_files/header-attrs/header-attrs.js"></script>
+    <link href="Presentation_files/remark-css/default.css" rel="stylesheet" />
+    <link href="Presentation_files/tachyons/tachyons.min.css" rel="stylesheet" />
+    <link href="Presentation_files/panelset/panelset.css" rel="stylesheet" />
+    <script src="Presentation_files/panelset/panelset.js"></script>
+    <link href="Presentation_files/xaringanExtra-extra-styles/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="Files/Theme.css" type="text/css" />
+    <link rel="stylesheet" href="Files/heidi-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+class: title-slide, left
+background-image: url("https://content.api.news/v3/images/bin/899a01602b8d3a6985bc2bea669d206c")
+background-size: Cover
+
+# Master of Sports Analytics 
+## Sports Analytics in Practice
+
+
+#### Heidi Thornton, PhD | 5th Oct, 2021
+
+
+
+
+
+
+<div>
+<style type="text/css">.xaringan-extra-logo {
+width: 100px;
+height: 100px;
+z-index: 0;
+background-image: url(https://www.latrobe.edu.au/_media/la-trobe-api/v5/img/latrobe-logo-og.png);
+background-size: contain;
+background-repeat: no-repeat;
+position: absolute;
+top:1em;right:1em;
+}
+</style>
+<script>(function () {
+  let tries = 0
+  function addLogo () {
+    if (typeof slideshow === 'undefined') {
+      tries += 1
+      if (tries < 10) {
+        setTimeout(addLogo, 100)
+      }
+    } else {
+      document.querySelectorAll('.remark-slide-content:not(.title-slide):not(.inverse):not(.hide_logo)')
+        .forEach(function (slide) {
+          const logo = document.createElement('a')
+          logo.classList = 'xaringan-extra-logo'
+          logo.href = 'https://www.latrobe.edu.au/_media/la-trobe-api/v5/img/latrobe-logo-og'
+          slide.appendChild(logo)
+        })
+    }
+  }
+  document.addEventListener('DOMContentLoaded', addLogo)
+})()</script>
+</div>
+
+
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.reduced_opacity {
+  opacity: 0.5;
+}
+&lt;/style&gt;
+
+
+
+---
+
+class: left, middle, hide_logo
+background-image: url(https://www.latrobe.edu.au/_media/la-trobe-api/v5/img/latrobe-logo-og.png)
+background-position: 85% 50%
+background-size: 55% 65%
+
+
+## Today's session
+
+Background of myself and my journey in sport
+
+Examples of how I use analytics in practice
+
+My key learnings and lessons
+
+
+---
+
+class: left
+
+background-image: url("Images/Home.jpg")
+background-position: 100% 50%
+background-size: 40% 65%
+
+# Brief background
+
+👋 I'm an applied sports scientist
+
+--
+
+I currently work with two 🏈teams
+
+--
+
+- Gold Coast Suns Football Club (AFL)
+
+
+- Newcastle Knights Rugby League Club (NRL)
+
+
+--
+
+🎓 I received my PhD from La Trobe University in 2019 
+
+- "Training monitoring in team-sports"
+
+
+--
+
+📌 I live in an amazing place - Newcastle
+
+---
+
+class: hide_logo, inverse, center, middle
+
+
+# My journey in sports analytics as a sports scientist
+
+---
+
+# Where I started
+
+🎓 I completed a **Bachelor of Exercise and Sports Science** at the University of Newcastle (my hometown)
+
+--
+
+I decided on doing an Honours degree with the **Newcastle Knights**
+
+--
+
+😬 I had **0** experience in sports science (or analytics) - I didn't even know how to use excel 
+
+
+--
+
+&lt;br&gt;
+
+.center[
+My analyics journey **started with** machine learning in R - I highly **DON'T** recommend this
+]
+&lt;br&gt;
+&lt;img src="https://media.giphy.com/media/HP0JqpBxLLGpO/giphy.gif" width="45%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Where I started
+ 
+&lt;img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Newcastle_Knights_logo.svg/1200px-Newcastle_Knights_logo.svg.png" width="17%", align="right"/&gt;
+
+
+&lt;br&gt;
+**Honours project - 'predicting' self reported illness'**
+--
+
+- Learnt R (or attempted to anyway)
+
+--
+
+- Collected self reported data (illness, wellness, RPE)
+
+--
+
+- Involved various machine learning models - 
+  - Decision tree 
+  - Random forest
+  - Boosting
+  
+--
+
+- Results
+  - Reduced wellness markers (i.e., increased fatigue) was associated with illness incidence
+  - Longer travel increased risk of illness
+
+
+---
+
+# Where I started
+
+
+.center[
+&lt;img src="Images/Predicting illness.jpg" width="60%", align="center"/&gt;
+]
+
+
+---
+class: inverse, hide_logo
+
+background-image: url("https://imageresizer.static9.net.au/XXIOYmbbuZB4_YPiQezVwgCJ1lk=/1024x0/https%3A%2F%2Fprod.static9.net.au%2Ffs%2F89b19919-b85f-44f8-83be-86f304def68f")
+background-size: Cover
+
+# What I learnt from this
+
+---
+
+# What I learnt from this
+
+&lt;img src="https://www.litmos.com/wp-content/uploads/2018/10/learning-experience-matters-498x500.jpg" width="35%", align="left"/&gt;
+
+
+.right[
+That **R** is actually pretty handy for sports scientists 💁]
+
+--
+
+.right[If you can't explain your findings clearly, than what's the point?] 
+  
+--
+
+.right[The findings didn't really tell us anything new]
+ 
+--
+
+.right[**Practically**, nothing really changed from the findings]
+
+
+---
+
+class: inverse, hide_logo, center, middle
+
+
+# Examples of how I use analytics in practice
+
+---
+class: hide_logo, inverse
+
+background-image: url("https://www.northweststar.com.au/images/transform/v1/crop/frm/AFKkRPHwQbXhqFfb42nFTx/cee5d59f-98a2-421b-9529-1782f284ba05.jpg/r0_247_4838_2978_w1200_h678_fmax.jpg")
+background-size: Cover
+
+# Example
+
+### Quantifying tortuosity
+
+---
+# What is tortuosity?
+
+.center[**"Tortuosity is a property of a curve being tortuous (twisted; having many turns)"**]
+
+--
+.pull-left[
+&lt;img src="https://mist.math.chalmers.se/wp-content/uploads/2021/04/tort_Bild1-edited.png",width="100%"/&gt;
+]
+--
+&lt;br&gt;
+.pull-right[
+**Applications to sport**
+
+- Non-linear running - evading/catching opposition
+- Manouverability (trade off between speed and tortuosity)
+- Rehab 
+- Trainable physical capacity
+]
+
+---
+# What is tortuosity?
+
+.center[
+&lt;video width="85%" height="85%" controls&gt;
+&lt;source src="Images/video.mp4" type="video/mp4"&gt;
+&lt;/video&gt;
+]
+---
+
+# Analytics - Tortuosity
+
+.center[&lt;img src="Images/Figure 1.png" width="55%", height="45%", align="center"/&gt;]
+
+---
+
+# Analytics - Tortuosity
+
+.center[**Data processing methods in R**]
+
+--
+
+.center[Export raw 10 Hz GPS files from matches (AFL/NRL)]
+
+--
+
+.center[Convert lat and long to X and Y coordinates - filter using 4th order, 1 Hz low pass Butterworth filter]
+
+--
+
+.center[Over 1, 2, 5 and 10 second durations, calculate rolling:
+&lt;br&gt;
+'Chord' distance (full distance travelled)
+&lt;br&gt;
+'Straight' distance (as the crow flies)
+&lt;br&gt;
+Mean speed (m.min&lt;sup&gt;-1&lt;/sup&gt;)]
+--
+&lt;br&gt;
+.center[**Tortuosity = log[100 x log(chord distance/straight distance)]**]  
+&lt;br&gt;
+
+.center[
+&lt;img src="Images/R.jpg" width="10%" /&gt;&lt;img src="https://d33wubrfki0l68.cloudfront.net/abfc8371af3aad114185f0cd4b6dc10beaab62b8/6b1b9/assets/img/tidyverse-735.jpg" width="10%" /&gt;&lt;img src="https://raw.githubusercontent.com/Rdatatable/data.table/master/.graphics/logo.png" width="10%" /&gt;&lt;img src="https://d33wubrfki0l68.cloudfront.net/071952491ec4a6a532a3f70ecfa2507af4d341f9/ff4d9/wp-content/uploads/2014/04/dplyr.png" width="10%" /&gt;&lt;img src="https://cran.r-project.org/web/packages/spNetwork/readme/man/figures/spNetwork_logo.png" width="10%" /&gt;&lt;img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq_Ko38V3ckp2NpouKZCDXlyT7QYcyyFtZc0AJi7XeKQyk5yed-VpdjqBRPkdDqDSqjlQ&amp;usqp=CAU" width="10%" /&gt;
+]
+---
+# Analytics - Tortuosity
+
+.pull-left[**Data processing methods in R**
+
+- Max tortuosity at 0.5 m.s&lt;sup&gt;-1&lt;/sup&gt; speed increments
+
+**Statistics**
+
+1. Curvelinear relationship between tortuosity and speed = quadratic equations
+
+2. Mixed models to compare quadratic coefficients between sports (AFL/NRL)]
+--
+
+&lt;img src="Images/Figure 3.jpg" width = "50%", align="right"/&gt;
+
+---
+
+
+class: hide_logo, inverse, center, middle
+
+
+# What were our findings?
+
+---
+
+# What were our findings?
+
+.center[Maneuverability **decreases** as running speed increases]
+
+--
+
+.center[Maneuverability remains **higher** when high-speed running efforts are longer]
+
+--
+
+.center[Athletes need to be able to run at high speed **and** change change direction]
+
+--
+
+.center[We know maneuverability reduces substantially at 2-2.5 m.s&lt;sup&gt;-1&lt;/sup&gt;, so we can train changing direction at that speed or above]
+
+&lt;br&gt;
+
+.center[&lt;img src="https://resources.afl.com.au/photo-resources/2019/12/09/cafa962c-efe9-4639-84ca-8edf49a019a3/yxPTDMQW.jpg?width=1064&amp;height=600" width = "47%", align="center"/&gt;]
+
+.right[
+.footer[Manuscript coming soon to PLOS One]]
+---
+# Why is this example relevant? 
+
+1. Have a clear **'problem'** - No quality method of quantifying maneuverability
+
+--
+
+2. Have tools to **measure** the 'problem' - GPS devices worn in games
+
+--
+
+3. Possess **appropriate analytical skills** to sold said problem - Using GPS and R to process data
+
+--
+
+4. Understand the **findings** - Understanding of concepts and interpretation of results 
+
+--
+
+5. Interpret the findings in a **practical** sense - Speak the language of who you are presenting findings to (i.e, coach, S&amp;C, athlete)
+
+--
+
+6. Communication - Consider how to present (i.e., discussion, report, formal presentation etc.)
+
+&lt;br&gt;
+
+.center[&lt;img src="https://uploads-ssl.webflow.com/5e5fbed1aa3b9fe5c261150a/5ea71abb45f4dd1cb294be58_Blog%20content%20image%20-%20hockey%20coach%20with%20analyst.jpg" width = "30%", align="center"/&gt;]
+
+---
+
+
+class: hide_logo, inverse, center, middle
+
+
+# Communication is KEY
+
+---
+class: hide_logo, right, inverse
+
+
+background-image: url("https://live-production.wcms.abc-cdn.net.au/d9d72fc85501f59d5b6be6afc2d6c6f1?impolicy=wcms_crop_resize&amp;cropH=1922&amp;cropW=2883&amp;xPos=19&amp;yPos=0&amp;width=862&amp;height=575")
+background-size: 100%
+
+
+# Thank you and good luck!
+
+#### <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>[heidithornton09](https://twitter.com/heidithornton09)  |  <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>  [Heidi Thornton](https://www.linkedin.com/in/heidi-thornton-956354a0/)
+#### <svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg>  [heidi.thornton@goldcoastfc.com.au](mailto:heidi.thornton@goldcoastfc.com.au)
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="assets/remark-zoom.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

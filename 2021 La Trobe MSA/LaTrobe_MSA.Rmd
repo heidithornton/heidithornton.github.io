@@ -1,0 +1,420 @@
+---
+output:
+  xaringan::moon_reader:
+    css: [default, "Files/Theme.css", "Files/heidi-fonts.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      ratio: 16:9 
+      beforeInit: ["assets/remark-zoom.js", "https://platform.twitter.com/widgets.js"]
+---
+
+
+class: title-slide, left
+background-image: url("https://content.api.news/v3/images/bin/899a01602b8d3a6985bc2bea669d206c")
+background-size: Cover
+
+# Master of Sports Analytics 
+## Sports Analytics in Practice
+
+
+#### Heidi Thornton, PhD | 5th Oct, 2021
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+options(htmltools.dir.version = FALSE, knitr.table.format = "html")
+knitr::opts_chunk$set(fig.retina = 3, warning = FALSE, message = FALSE)
+library(tidyverse) 
+library(emojifont) 
+library(fontawesome)
+library(emo)
+remotes::install_github("jhelvy/xaringanBuilder")
+
+library(xaringanBuilder)
+library(xaringanthemer)
+```
+
+
+```{r xaringan-logo, echo=FALSE}
+xaringanExtra::use_logo(
+  image_url = "https://www.latrobe.edu.au/_media/la-trobe-api/v5/img/latrobe-logo-og.png",
+   width = "100px",
+  height = "100px",
+  link_url = "https://www.latrobe.edu.au/_media/la-trobe-api/v5/img/latrobe-logo-og"
+)
+```
+
+```{r xaringan-tachyons, echo=FALSE}
+xaringanExtra::use_tachyons()
+```
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{r xaringan-extra-styles, echo=FALSE}
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         
+  mute_unhighlighted_code = TRUE  
+)
+```
+
+```{css, echo = F}
+.reduced_opacity {
+  opacity: 0.5;
+}
+```
+
+
+
+---
+
+class: left, middle, hide_logo
+background-image: url(https://www.latrobe.edu.au/_media/la-trobe-api/v5/img/latrobe-logo-og.png)
+background-position: 85% 50%
+background-size: 55% 65%
+
+
+## Today's session
+
+Background of myself and my journey in sport
+
+Examples of how I use analytics in practice
+
+My key learnings and lessons
+
+
+---
+
+class: left
+
+background-image: url("Images/Home.jpg")
+background-position: 100% 50%
+background-size: 40% 65%
+
+# Brief background
+
+`r emo::ji("wave")` I'm an applied sports scientist
+
+--
+
+I currently work with two `r emo::ji("football")`teams
+
+--
+
+- Gold Coast Suns Football Club (AFL)
+
+
+- Newcastle Knights Rugby League Club (NRL)
+
+
+--
+
+`r emo::ji("graduation")` I received my PhD from La Trobe University in 2019 
+
+- "Training monitoring in team-sports"
+
+
+--
+
+`r emo::ji("location")` I live in an amazing place - Newcastle
+
+---
+
+class: hide_logo, inverse, center, middle
+
+
+# My journey in sports analytics as a sports scientist
+
+---
+
+# Where I started
+
+`r emo::ji("graduation")` I completed a **Bachelor of Exercise and Sports Science** at the University of Newcastle (my hometown)
+
+--
+
+I decided on doing an Honours degree with the **Newcastle Knights**
+
+--
+
+`r emo::ji("grimacing face")` I had **0** experience in sports science (or analytics) - I didn't even know how to use excel 
+
+
+--
+
+<br>
+
+.center[
+My analyics journey **started with** machine learning in R - I highly **DON'T** recommend this
+]
+<br>
+```{r crazy, out.width='45%', echo=FALSE, fig.align='center'}
+knitr::include_graphics("https://media.giphy.com/media/HP0JqpBxLLGpO/giphy.gif")
+```
+
+
+---
+
+# Where I started
+ 
+<img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Newcastle_Knights_logo.svg/1200px-Newcastle_Knights_logo.svg.png" width="17%", align="right"/>
+
+
+<br>
+**Honours project - 'predicting' self reported illness'**
+--
+
+- Learnt R (or attempted to anyway)
+
+--
+
+- Collected self reported data (illness, wellness, RPE)
+
+--
+
+- Involved various machine learning models - 
+  - Decision tree 
+  - Random forest
+  - Boosting
+  
+--
+
+- Results
+  - Reduced wellness markers (i.e., increased fatigue) was associated with illness incidence
+  - Longer travel increased risk of illness
+
+
+---
+
+# Where I started
+
+
+.center[
+<img src="Images/Predicting illness.jpg" width="60%", align="center"/>
+]
+
+
+---
+class: inverse, hide_logo
+
+background-image: url("https://imageresizer.static9.net.au/XXIOYmbbuZB4_YPiQezVwgCJ1lk=/1024x0/https%3A%2F%2Fprod.static9.net.au%2Ffs%2F89b19919-b85f-44f8-83be-86f304def68f")
+background-size: Cover
+
+# What I learnt from this
+
+---
+
+# What I learnt from this
+
+<img src="https://www.litmos.com/wp-content/uploads/2018/10/learning-experience-matters-498x500.jpg" width="35%", align="left"/>
+
+
+.right[
+That **R** is actually pretty handy for sports scientists `r emo::ji("person tipping hand")`]
+
+--
+
+.right[If you can't explain your findings clearly, than what's the point?] 
+  
+--
+
+.right[The findings didn't really tell us anything new]
+ 
+--
+
+.right[**Practically**, nothing really changed from the findings]
+
+
+---
+
+class: inverse, hide_logo, center, middle
+
+
+# Examples of how I use analytics in practice
+
+---
+class: hide_logo, inverse
+
+background-image: url("https://www.northweststar.com.au/images/transform/v1/crop/frm/AFKkRPHwQbXhqFfb42nFTx/cee5d59f-98a2-421b-9529-1782f284ba05.jpg/r0_247_4838_2978_w1200_h678_fmax.jpg")
+background-size: Cover
+
+# Example
+
+### Quantifying tortuosity
+
+---
+# What is tortuosity?
+
+.center[**"Tortuosity is a property of a curve being tortuous (twisted; having many turns)"**]
+
+--
+.pull-left[
+<img src="https://mist.math.chalmers.se/wp-content/uploads/2021/04/tort_Bild1-edited.png",width="100%"/>
+]
+--
+<br>
+.pull-right[
+**Applications to sport**
+
+- Non-linear running - evading/catching opposition
+- Manouverability (trade off between speed and tortuosity)
+- Rehab 
+- Trainable physical capacity
+]
+
+---
+# What is tortuosity?
+
+.center[
+<video width="85%" height="85%" controls>
+<source src="Images/video.mp4" type="video/mp4">
+</video>
+]
+---
+
+# Analytics - Tortuosity
+
+.center[<img src="Images/Figure 1.png" width="55%", height="45%", align="center"/>]
+
+---
+
+# Analytics - Tortuosity
+
+.center[**Data processing methods in R**]
+
+--
+
+.center[Export raw 10 Hz GPS files from matches (AFL/NRL)]
+
+--
+
+.center[Convert lat and long to X and Y coordinates - filter using 4th order, 1 Hz low pass Butterworth filter]
+
+--
+
+.center[Over 1, 2, 5 and 10 second durations, calculate rolling:
+<br>
+'Chord' distance (full distance travelled)
+<br>
+'Straight' distance (as the crow flies)
+<br>
+Mean speed (m.min<sup>-1</sup>)]
+--
+<br>
+.center[**Tortuosity = log[100 x log(chord distance/straight distance)]**]  
+<br>
+
+.center[
+```{r images, out.width='10%', echo=FALSE}
+knitr::include_graphics('Images/R.jpg')
+
+knitr::include_graphics('https://d33wubrfki0l68.cloudfront.net/abfc8371af3aad114185f0cd4b6dc10beaab62b8/6b1b9/assets/img/tidyverse-735.jpg')
+knitr::include_graphics('https://raw.githubusercontent.com/Rdatatable/data.table/master/.graphics/logo.png')
+knitr::include_graphics('https://d33wubrfki0l68.cloudfront.net/071952491ec4a6a532a3f70ecfa2507af4d341f9/ff4d9/wp-content/uploads/2014/04/dplyr.png')
+knitr::include_graphics('https://cran.r-project.org/web/packages/spNetwork/readme/man/figures/spNetwork_logo.png')
+knitr::include_graphics('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq_Ko38V3ckp2NpouKZCDXlyT7QYcyyFtZc0AJi7XeKQyk5yed-VpdjqBRPkdDqDSqjlQ&usqp=CAU')
+```
+]
+---
+# Analytics - Tortuosity
+
+.pull-left[**Data processing methods in R**
+
+- Max tortuosity at 0.5 m.s<sup>-1</sup> speed increments
+
+**Statistics**
+
+1. Curvelinear relationship between tortuosity and speed = quadratic equations
+
+2. Mixed models to compare quadratic coefficients between sports (AFL/NRL)]
+--
+
+<img src="Images/Figure 3.jpg" width = "50%", align="right"/>
+
+---
+
+
+class: hide_logo, inverse, center, middle
+
+
+# What were our findings?
+
+---
+
+# What were our findings?
+
+.center[Maneuverability **decreases** as running speed increases]
+
+--
+
+.center[Maneuverability remains **higher** when high-speed running efforts are longer]
+
+--
+
+.center[Athletes need to be able to run at high speed **and** change change direction]
+
+--
+
+.center[We know maneuverability reduces substantially at 2-2.5 m.s<sup>-1</sup>, so we can train changing direction at that speed or above]
+
+<br>
+
+.center[<img src="https://resources.afl.com.au/photo-resources/2019/12/09/cafa962c-efe9-4639-84ca-8edf49a019a3/yxPTDMQW.jpg?width=1064&height=600" width = "47%", align="center"/>]
+
+.right[
+.footer[Manuscript coming soon to PLOS One]]
+---
+# Why is this example relevant? 
+
+1. Have a clear **'problem'** - No quality method of quantifying maneuverability
+
+--
+
+2. Have tools to **measure** the 'problem' - GPS devices worn in games
+
+--
+
+3. Possess **appropriate analytical skills** to sold said problem - Using GPS and R to process data
+
+--
+
+4. Understand the **findings** - Understanding of concepts and interpretation of results 
+
+--
+
+5. Interpret the findings in a **practical** sense - Speak the language of who you are presenting findings to (i.e, coach, S&C, athlete)
+
+--
+
+6. Communication - Consider how to present (i.e., discussion, report, formal presentation etc.)
+
+<br>
+
+.center[<img src="https://uploads-ssl.webflow.com/5e5fbed1aa3b9fe5c261150a/5ea71abb45f4dd1cb294be58_Blog%20content%20image%20-%20hockey%20coach%20with%20analyst.jpg" width = "30%", align="center"/>]
+
+---
+
+
+class: hide_logo, inverse, center, middle
+
+
+# Communication is KEY
+
+---
+class: hide_logo, right, inverse
+
+
+background-image: url("https://live-production.wcms.abc-cdn.net.au/d9d72fc85501f59d5b6be6afc2d6c6f1?impolicy=wcms_crop_resize&cropH=1922&cropW=2883&xPos=19&yPos=0&width=862&height=575")
+background-size: 100%
+
+
+# Thank you and good luck!
+
+#### `r fa("twitter", fill = "white")`[heidithornton09](https://twitter.com/heidithornton09)  |  `r fa("linkedin", fill = "white")`  [Heidi Thornton](https://www.linkedin.com/in/heidi-thornton-956354a0/)
+#### `r fa("envelope", fill = "white")`  [heidi.thornton@goldcoastfc.com.au](mailto:heidi.thornton@goldcoastfc.com.au)
+
+
