@@ -389,11 +389,32 @@ class: hide_logo, inverse, center, middle
 
 ---
 
+background-image: url("https://live-production.wcms.abc-cdn.net.au/19d2f31b9856393b072d3f0326941efb?impolicy=wcms_crop_resize&cropH=1364&cropW=2425&xPos=0&yPos=26&width=862&height=485")
+background-size: 100%
 
+class: hide_logo, inverse
+
+# My key learnings/advice
+
+---
 class: hide_logo, inverse, center, middle
 
+# Understand the end-user's needs
+
+---
+class: hide_logo, inverse, middle, center
+
+# Keep it simple and impactful
+
+---
+class: hide_logo, inverse, middle, center
 
 # Communication is KEY
+
+---
+class: hide_logo, inverse, middle, center
+
+# Seek out and embrace feedback
 
 ---
 class: hide_logo, right, inverse
