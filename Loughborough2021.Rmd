@@ -316,7 +316,7 @@ Assisting reporting of other areas]
 # A typical day
 <br>
 <br>
-.left[<img src="2021 LBU Presentaion/Images/Suns2.jpg" width="33%", align="left"/>]
+.left[<img src="2021 LBU Presentaion/Images/Suns2.png" width="33%", align="left"/>]
 .right[<img src="2021 LBU Presentaion/Images/Melbourne3.jpg" width="33%", align="right"/>]
 
 
