@@ -1,7 +1,7 @@
 ---
 output:
   xaringan::moon_reader:
-    css: [default, "Files/Theme.css", "Files/heidi-fonts.css"]
+    css: [default, "2021 LBU Presentaion/Files/Theme.css", "2021 LBU Presentaion/Files/heidi-fonts.css"]
     nature:
       highlightStyle: github
       highlightLines: true
@@ -11,13 +11,13 @@ output:
 ---
 
 class: title-slide
-background-image: url("Images/Slide1.png")
+background-image: url("2021 LBU Presentaion/Images/Slide1.png")
 background-size: Cover
 
 ---
 
 class: title-slide
-background-image: url("Images/Slide2.png")
+background-image: url("2021 LBU Presentaion/Images/Slide2.png")
 background-size: Cover
 
 
@@ -70,7 +70,7 @@ background-size: Cover
 
 class: left
 
-background-image: url("Images/Home.jpg")
+background-image: url("2021 LBU Presentaion/Images/Home.jpg")
 background-position: 100% 50%
 background-size: 40% 65%
 
@@ -106,7 +106,7 @@ I currently work with two `r emo::ji("football")`teams
 # My journey - starting point
 <br>
 .right[
-<img src="Images/Knights.png" width="18%", align="right"/>
+<img src="2021 LBU Presentaion/Images/Knights.png" width="18%", align="right"/>
 ]
 
 Just before finishing my undergrad degree, I decided clinical EP wasn't for me `r emo::ji("grimacing face")`
@@ -136,7 +136,7 @@ Involved many **irrelevant jobs**
 
 # My journey - PhD
 <br>
-<img src="Images/staff.jpg" width="46%", align="left"/>
+<img src="2021 LBU Presentaion/Images/staff.jpg" width="46%", align="left"/>
 
 
 .right[**2015** - The Knights offered me an embedded **PhD role**]
@@ -167,7 +167,7 @@ Involved many **irrelevant jobs**
  
 ---
 
-background-image: url("Images/Suns.png")
+background-image: url("2021 LBU Presentaion/Images/Suns.png")
 background-position: 95% 30%
 background-size: 15% 20%
 
@@ -198,7 +198,7 @@ Role was really diverse
 
 ---
 
-background-image: url("Images/Empty metricon.jpg")
+background-image: url("https://resources.goldcoastfc.com.au/photo-resources/2020/06/18/f7de25a7-21de-4d96-a12b-470ab40ea735/01GCPA20JS471242890.JPG?width=952&height=592")
 background-position: 100% 45%
 background-size: 40% 45%
 
@@ -232,7 +232,7 @@ background-size: 40% 45%
 # My journey - current
 <br>
 .left[
-<img src="Images/Combined.jpg" width="22%", align="left"/>
+<img src="2021 LBU Presentaion/Images/Combined.jpg" width="22%", align="left"/>
 ]
  
 --
@@ -308,16 +308,16 @@ Assisting reporting of other areas]
 # A typical day
 <br>
 <br>
-.left[<img src="Images/Work.jpg" width="40%", align="left"/>]
-.right[<img src="Images/Suns3.jpg" width="40%", align="right"/>]
+.left[<img src="2021 LBU Presentaion/Images/Work.jpg" width="40%", align="left"/>]
+.right[<img src="2021 LBU Presentaion/Images/Suns3.jpg" width="40%", align="right"/>]
 
 ---
 
 # A typical day
 <br>
 <br>
-.left[<img src="Images/Suns2.jpg" width="33%", align="left"/>]
-.right[<img src="Images/Melbourne3.jpg" width="33%", align="right"/>]
+.left[<img src="2021 LBU Presentaion/Images/Suns2.jpg" width="33%", align="left"/>]
+.right[<img src="2021 LBU Presentaion/Images/Melbourne3.jpg" width="33%", align="right"/>]
 
 
 ---
