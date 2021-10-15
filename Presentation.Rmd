@@ -1,0 +1,404 @@
+---
+output:
+  xaringan::moon_reader:
+    css: [default, "Files/Theme.css", "Files/heidi-fonts.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      ratio: 16:9 
+      beforeInit: ["assets/remark-zoom.js", "https://platform.twitter.com/widgets.js"]
+---
+
+class: title-slide
+background-image: url("Images/Slide1.png")
+background-size: Cover
+
+---
+
+class: title-slide
+background-image: url("Images/Slide2.png")
+background-size: Cover
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+options(htmltools.dir.version = FALSE, knitr.table.format = "html")
+knitr::opts_chunk$set(fig.retina = 3, warning = FALSE, message = FALSE)
+library(tidyverse) 
+library(emojifont) 
+library(fontawesome)
+library(emo)
+remotes::install_github("jhelvy/xaringanBuilder")
+
+library(xaringanBuilder)
+library(xaringanthemer)
+```
+
+
+```{r xaringan-logo, echo=FALSE}
+xaringanExtra::use_logo(
+  image_url = "https://gescoedu.com/wp-content/uploads/2020/03/Louborough-University.png",
+   width = "150px",
+  height = "70px"
+)
+```
+
+```{r xaringan-tachyons, echo=FALSE}
+xaringanExtra::use_tachyons()
+```
+
+```{r xaringan-panelset, echo=FALSE}
+xaringanExtra::use_panelset()
+```
+
+```{r xaringan-extra-styles, echo=FALSE}
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         
+  mute_unhighlighted_code = TRUE  
+)
+```
+
+---
+
+class: title-slide
+background-image: url("https://content.api.news/v3/images/bin/899a01602b8d3a6985bc2bea669d206c")
+background-size: Cover
+
+
+---
+
+class: left
+
+background-image: url("Images/Home.jpg")
+background-position: 100% 50%
+background-size: 40% 65%
+
+# Brief background
+
+`r emo::ji("wave")` I'm an applied sports scientist
+
+--
+
+`r emo::ji("location")` I live in an amazing place - Newcastle (Australia) 
+
+--
+
+I currently work with two `r emo::ji("football")`teams
+
+--
+
+- Gold Coast Suns Football Club (AFL)
+
+
+- Newcastle Knights Rugby League Club (NRL)
+
+
+--
+
+`r emo::ji("graduation")` I received my PhD from La Trobe University in 2019 
+
+- "Training monitoring in team-sports"
+
+
+---
+
+# My journey - starting point
+<br>
+.right[
+<img src="Images/Knights.png" width="18%", align="right"/>
+]
+
+Just before finishing my undergrad degree, I decided clinical EP wasn't for me `r emo::ji("grimacing face")`
+
+--
+
+An Honours position was available at the **Newcastle Knights Rugby League Club**
+
+--
+
+Involved an embedded an Honours project at the club
+
+--
+
+Involved many **irrelevant jobs**
+ - Washing dishes, cleaning common area, RPEs, grocery shopping – not glamorous!
+
+--
+<br>
+<br>
+<br>
+<br>
+
+**Hardest year of all**, juggling full time hours at the club, Honours full time and running my own business – 16-hour days were common!
+
+---
+
+# My journey - PhD
+<br>
+<img src="Images/staff.jpg" width="46%", align="left"/>
+
+
+.right[**2015** - The Knights offered me an embedded **PhD role**]
+
+--
+
+.right[Full time hours, although not 'employed']
+
+--
+
+.right[I got a scholarship and worked outside of this]
+
+--
+
+.right[I tried to maximise research output during this time]
+
+--
+
+<br>
+
+.right[**2017** - I was offered the **Head of Sports Science** role
+
+**Finished PhD** during this time!]
+--
+<br>
+
+.center[Including honours, 5 seasons -  **4 head coaches and 3 high-performance teams**]
+ 
+---
+
+background-image: url("Images/Suns.png")
+background-position: 95% 30%
+background-size: 15% 20%
+
+
+
+# My journey - Gold Coast Suns
+<br>
+Approached by the Gold Coast Suns (AFL) at the end of the 2018 season
+
+--
+
+Moved interstate 3 weeks later
+
+--
+
+Role was really diverse
+--
+
+- Involved setting up an entire sports science program 
+- New reporting systems
+- Club-wide program - AFL -> AFLW -> VFL -> Academy
+
+
+
+<br>
+
+.center[<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5sXUKPm4Rm89faDYCbEEfVaTZzKA9p1G9nA&usqp=CAU" width="45%", align="center"/>]
+
+---
+
+background-image: url("Images/Empty metricon.jpg")
+background-position: 100% 45%
+background-size: 40% 45%
+
+
+# My journey - Gold Coast Suns
+<br>
+.left[Promoted to **Head of Sports Science** in 2019] 
+
+--
+
+.left[Role become more diverse in **managing a staff member** (AFLW)]
+
+--
+
+.left[Managing **University partnership** and setting up research program]
+
+--
+
+.left[Anything and everything sports science related] 
+
+
+--
+
+.large[**Then a pandemic hit**]
+
+
+
+
+---
+
+# My journey - current
+<br>
+.left[
+<img src="Images/Combined.jpg" width="22%", align="left"/>
+]
+ 
+--
+
+
+.right[I needed to move home for family reasons in Nov 2020]
+
+--
+
+.right[Since, I have been working across both clubs]
+
+--
+
+.right[I manage the sports science programs]
+
+--
+
+.right[At the Suns, **I work remotely**, and I am **face-to face** at the Knights]
+
+--
+
+.right[No day is the same, and both roles are quite **diverse**]
+
+---
+
+# A typical day
+<br>
+.center[**There's no such thing at the moment** `r emo::ji("sassy")`] 
+--
+.pull-left[**Suns** `r emo::ji("sun")`
+
+Planning sessions/managing training loads
+<br>
+
+Creating and improving reporting systems
+<br>
+
+Developing clubs AMS (Apollo)
+<br>
+
+Supervising sports science/uni HDR students
+<br>
+
+Assisting Football analysts with data
+<br>
+
+Managing clubs university partnership
+<br>
+
+Conduct applied research]
+
+--
+
+.right[**Knights** `r emo::ji("football")`
+<br>
+
+Live GPS during training sessions
+<br>
+
+Produce sports science related reports
+<br>
+
+Developing clubs AMS (Smartabase)
+<br>
+
+Conduct applied research
+<br>
+
+Assisting reporting of other areas]
+
+---
+
+# A typical day
+<br>
+<br>
+.left[<img src="Images/Work.jpg" width="40%", align="left"/>]
+.right[<img src="Images/Suns3.jpg" width="40%", align="right"/>]
+
+---
+
+# A typical day
+<br>
+<br>
+.left[<img src="Images/Suns2.jpg" width="33%", align="left"/>]
+.right[<img src="Images/Melbourne3.jpg" width="33%", align="right"/>]
+
+
+---
+# My expertise
+
+.pull-left[
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Using the new <a href="https://twitter.com/hashtag/catapultR?src=hash&amp;ref_src=twsrc%5Etfw">#catapultR</a> package, access, manipulate and create interactive reports in just a few seconds using <a href="https://twitter.com/hashtag/Rmarkdown?src=hash&amp;ref_src=twsrc%5Etfw">#Rmarkdown</a> 🙌 <br><br>Sports science has come a long way from clunky, time consuming excel reports ⏰<br><br>Thanks for the inspiration/resources on <a href="https://twitter.com/hashtag/R?src=hash&amp;ref_src=twsrc%5Etfw">#R</a> <a href="https://twitter.com/jfernandez_?ref_src=twsrc%5Etfw">@jfernandez_</a> <a href="https://twitter.com/SportSciData?ref_src=twsrc%5Etfw">@SportSciData</a> <a href="https://t.co/zI1V26d5WG">pic.twitter.com/zI1V26d5WG</a></p>&mdash; Heidi Thornton (@heidithornton09) <a href="https://twitter.com/heidithornton09/status/1287990335247769600?ref_src=twsrc%5Etfw">July 28, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+]
+
+
+--
+
+.right[**My passion is anything data related** 
+<br>
+
+Athlete tracking (GPS)
+<br>
+
+Sports analytics
+<br>
+
+R programming (& R Markdown/R Shiny)
+<br>
+
+Data visualisation
+<br>
+
+Statistics
+<br>
+
+Load monitoring]
+
+
+
+---
+
+# My advice
+
+.pull-left[
+Being a female **isn't a barrier**
+
+<br>
+Build a **network** - it actually does help 
+
+<br>
+Enjoy the positives - **live in the moment** more 
+
+<br>
+Listen to what the team wants/**work part of a team** 
+
+<br>
+Do something **better** than the next person
+
+<br>
+**Work hard** and be a **good human**
+
+<br>
+**Be humble**]
+
+
+.pull-right[
+```{r why, out.width='100%', echo=FALSE, fig.align='right'}
+knitr::include_graphics("https://media.giphy.com/media/xUOwG5hJ7pO0A2xx3G/giphy.gif")
+```
+]
+---
+
+class: right, hide_logo, inverse, bottom
+
+background-image: url("https://resources.afl.com.au/photo-resources/2019/11/14/2c9782b4-2794-4956-9ae7-916d0e018502/GFRiGW19RCP759699483.JPG?width=952&height=592")
+background-size: 100%
+
+
+# Thank you and good luck!
+#### `r fa("twitter", fill = "white")`[heidithornton09](https://twitter.com/heidithornton09)<br>
+####`r fa("link")` [https://heidithornton.netlify.app/](https://heidithornton.netlify.app/)<br>
+#### `r fa("linkedin", fill = "white")` [Heidi Thornton](https://www.linkedin.com/in/heidi-thornton-956354a0/)
+
+
+
+
+
