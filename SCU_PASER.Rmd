@@ -1,0 +1,715 @@
+---
+output:
+  xaringan::moon_reader:
+    css: [default, "SCU_PASER_files/Theme.css", "SCU_PASER_files/heidi-fonts.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      output: html_document
+      countIncrementalSlides: true
+      ratio: 16:9 
+
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+options(htmltools.dir.version = FALSE, knitr.table.format = "html")
+library(tidyverse) 
+library(emojifont) 
+library(fontawesome)
+library(emo)
+require(icons)
+library(readxl)
+```
+
+
+class: title-slide, left
+background-image: url("SCU_PASER_files/Images/cool-background.png")
+background-size: Cover
+opacity: 0.7
+
+<br>
+# Integrating Data Science in Sports and Research
+## PASER Meeting
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+### Heidi Compton, PhD | 21st Oct, 2024
+#### Lecturer (Data and Technology)
+
+.logoposRB[
+  <img src="https://seeklogo.com/images/U/university-of-newcastle-logo-E447988377-seeklogo.com.png" width="35%"/>
+]
+
+
+```{r xaringan-logo, echo=FALSE}
+xaringanExtra::use_logo(
+  image_url = "https://seeklogo.com/images/U/university-of-newcastle-logo-E447988377-seeklogo.com.png",
+   width = "70px",
+  height = "70px",
+  link_url = "https://seeklogo.com/images/U/university-of-newcastle-logo-E447988377-seeklogo.com.png"
+)
+```
+
+
+
+
+---
+
+class: left, middle, hide_logo
+background-image: url("SCU_PASER_files/Images/Newcastle.jpg")
+background-position: 85% 50%
+background-size: 55% 65%
+
+
+### Acknowledgement of Country
+##### Newcastle, Awabakal Country
+
+---
+
+class: left
+
+background-image: url("SCU_PASER_files/Images/Home.jpg")
+background-position: 100% 40%
+background-size: 30% 55%
+
+# About me
+
+`r emo::ji("wave")`I'm a lecturer in data and technology at the University of Newcastle
+
+--
+
+<br>
+
+I'm an ESSA accredited Level 2 Sports Scientist
+
+--
+
+<br>
+
+`r emo::ji("graduation")` I completed my PhD with the Newcastle Knights Rugby League Club (NRL) 
+
+--
+
+<br>
+
+I worked in the NRL and AFL for around 9 years (combined)
+
+--
+
+<br>
+
+`r emo::ji("location")`I am from Newcastle, and am currently living here
+
+---
+class: right, top, hide_logo
+background-image: url("SCU_PASER_files/Images/Background4.jpg")
+background-size: Cover
+
+# What we will cover?
+
+--
+<br>
+<span style="font-size: 30px;">Why and how I learnt to work with data</span>
+
+<br>
+--
+<span style="font-size: 30px;">How data skills can benefit our research</span>
+ 
+<br>
+--
+<span style="font-size: 30px;">Why data and using coding software isn't scary!</span> 
+ 
+<br>
+--
+<span style="font-size: 30px;">Learn some techniques for data analysis using R Studio</span>
+
+---
+
+background-image: url("SCU_PASER_files/Images/DataSport.png")
+background-position: 50% 95%
+background-size: 20% 30%
+
+# Why did I learn to work with data?
+
+.pull-left[- During my Honours, I struggled to have an impact on the sports science staff as I had **little to no skills**]
+--
+.pull-left[- I had completed an **Bachelor of Exercise and Sport Science**, however lacked the knowledge that would help me in this applied setting]
+--
+.pull-left[- I experienced my fair share of gender-related issues in this setting, "you've never played football, so what would you know"]
+--
+.pull-left[- I started to notice that there was a bit of a knowledge gap/opportunity for some data-related expertise (although I had none)]
+--
+.pull-left[- My initial project fell to pieces and I was left with no project about 4 months in `r emo::ji("grimacing face")`]
+
+
+---
+class: top, centre
+# What next?
+
+.center[
+We decided on a project using existing data, however it required **significant** analysis which I wasn't equipped for (I struggled to even use excel)
+]
+--
+.center[
+My data analyics journey **started with** machine learning in R as an Honours student - I highly **DON'T** recommend this
+]
+<br>
+
+```{r crazy, out.width='55%', echo=FALSE, fig.align='center'}
+knitr::include_graphics("https://media.giphy.com/media/HP0JqpBxLLGpO/giphy.gif")
+```
+
+---
+
+# What I learnt from this?
+
+<img src="https://www.litmos.com/wp-content/uploads/2018/10/learning-experience-matters-498x500.jpg" width="35%", align="left"/>
+
+
+.right[
+That **R** is actually pretty handy for sports scientists `r emo::ji("person tipping hand")`]
+
+--
+
+.right[If you can't explain your findings clearly, than **what's the point?**] 
+  
+--
+
+.right[The findings didn't really tell us anything new]
+ 
+--
+
+.right[**Practically**, nothing really changed from the findings]
+
+--
+<br>
+<br>
+<br>
+<br>
+.right[What it did teach me, was how having some coding skills could benefit my work/career]
+
+---
+class: top, centre
+background-image: url("SCU_PASER_files/Images/dataOverload.png")
+background-position: 90% 50%
+background-size: 35% 50%
+
+# Data hurdles in research
+
+`r fa("database", fill = "black")`  Working with data across many databases
+
+--
+
+<br>
+
+`r fa("trash", fill = "black")`  Dealing with messy, manual, incomplete data sets
+
+--
+
+<br>
+
+`r fa("cogs", fill = "black")`  Incomplete or missing data
+
+--
+
+<br>
+
+`r fa("hand", fill = "black")`  Needing to join multiple datasets together 
+
+--
+
+<br>
+
+`r fa("history", fill = "black")`  Requirement for reproducible analyses 
+
+--
+
+<br>
+
+`r fa("chart-bar", fill = "black")`  The need for high quality, reproducible visualisations
+---
+background-image: url("SCU_PASER_files/Images/Coding.jpg")
+background-position: 50% 55%
+background-size: 80% 60%
+
+# The solution
+
+---
+
+# Why coding skills can benefit academics
+
+
+`r fa("arrow-rotate-right", fill = "black")` **REPRODUCIBILITY** - ensures all processes can easily be reproduced. **Critical** in academia
+
+--
+
+`r fa("cogs", fill = "black")` Scales to all levels of complexity
+
+--
+
+`r fa("bolt", fill = "black")` Fast, efficient and no human error - automate manual processes to minimise human error and increase efficiency
+
+--
+
+`r fa("database", fill = "black")` Handles large datasets
+--
+
+`r fa("house", fill = "black")` End-to-end research workflow - from data analysis, visualisation to report generation
+
+--
+
+`r fa("seedling", fill = "black")` Save time for better research - focus more on your actual research
+
+--
+
+`r fa("graduation-cap", fill = "black")` Broaden your skill set - increase employability and collaborations
+
+
+```{r R image, out.width='35%', echo=FALSE, fig.align='center'}
+knitr::include_graphics("https://media.giphy.com/media/3o751PUITEcyysxiUM/giphy.gif")
+```
+
+
+---
+
+
+class: left
+
+# Why not just use excel?
+
+
+Both [Alice Sweeting](http://sportstatisticsrsweet.rbind.io/) and [Jacquie Tran](https://www.jacquietran.com/) have presented on this previously
+
+--
+
+BUT the general story is....
+
+
+.pull-left[
+```{r image_grobs, echo=FALSE, fig.show = "hold", out.width = "45%"}
+knitr::include_graphics("https://media.giphy.com/media/Sb9KqeeymLlESGWZyE/giphy.gif")
+```
+
+]
+--
+
+.pull-right[
+```{r eye roll, echo=FALSE, out.width = "65%"}
+knitr::include_graphics("https://media.giphy.com/media/Rhhr8D5mKSX7O/giphy.gif")
+```
+]
+
+
+---
+
+# Examples of how i've used R for research
+
+
+Created a dashboard app to present meta-analysis data 
+
+```{r fifa app, out.width='95%', echo=FALSE, fig.align='centre'}
+knitr::include_graphics("SCU_PASER_files/Images/FiFA_app.png")
+```
+
+---
+
+# Examples of how i've used R for research
+
+
+Created a dashboard app to present meta-analysis data 
+<br>
+
+```{r fifa app2, out.width='95%', echo=FALSE, fig.align='centre'}
+knitr::include_graphics("SCU_PASER_files/Images/FiFA_app2.png")
+```
+
+---
+background-image: url("SCU_PASER_files/Images/insole_paper.png")
+background-position: 95% 50%
+background-size: 25% 25%
+
+
+# Examples of how i've used R for research
+
+.left[
+Created a program to detect sprint skating stride information from wearable insoles
+]
+<br>
+
+```{r insole paper2, out.width='65%', echo=FALSE, fig.align='centre'}
+knitr::include_graphics("https://ars.els-cdn.com/content/image/1-s2.0-S0966636224005101-gr3_lrg.jpg")
+```
+
+---
+background-image: url("SCU_PASER_files/Images/Background.jpg")
+background-position: 90% 80%
+background-size: 30% 30%
+
+
+# Examples of how i've used R in sport
+
+`r emo::ji("heavy_check_mark")` Pulling data from GPS software cloud using an API (no need to touch any data from download to reports)
+
+--
+
+`r emo::ji("heavy_check_mark")` Processing of raw GPS files - additional analyses
+
+--
+
+`r emo::ji("heavy_check_mark")` Extracting, cleaning and visualising live statistics during games for coaches
+
+--
+
+`r emo::ji("heavy_check_mark")` Shiny apps for non-routine reports
+
+--
+
+`r emo::ji("heavy_check_mark")` Analysing all data sources
+
+
+---
+
+
+class: left, top
+.center[
+# Starting out in R/ RStudio
+]
+
+.left[
+* First, install [R](https://www.r-project.org/) (required) from your local CRAN and as per your operating system
+]
+--
+.left[
+* Next, install [RStudio Desktop](https://rstudio.com/products/rstudio/download/), as it is a friendly interface to learn and use R
+]
+--
+.left[
+* Plenty of free, online resources to learn how to program in R, including [RStudio Education](https://education.rstudio.com/)
+]
+--
+.left[
+* I've provided a list of **free resources** at the end of this presentation to help learn R
+]
+<br>
+
+```{r setup R, out.width = '50%', echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/571b056757d68e6df81a3e3853f54d3c76ad6efc/32d37/diagrams/data-science.png")
+```
+
+
+.footnote[
+Image Source: [**R for Data Science**](https://r4ds.had.co.nz/introduction.html)
+]
+
+---
+
+
+# Creating a project
+
+Create a new project in RStudio: `File -> New Project -> New Directory -> New Project`. 
+<br>
+<br>
+
+--
+<br>
+```{r project, out.width = '40%', echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/dee6324df1f5c5121d1c1e9eed822ee52c87167b/1f325/screenshots/rstudio-project-3.png")
+```
+
+
+--
+`r fa("search-location", fill = "black")`  Projects help to organise files and locations
+
+--
+`r fa("hand-point-right", fill = "black")` Projects allow all files (scripts, figures, output etc) to be stored together
+
+
+---
+
+# R packages
+
+`r fa("box-open", fill = "black")`  In R we use **Packages** that provide functions to perform different tasks
+
+.right[
+<img src="https://cdn.analyticsvidhya.com/wp-content/uploads/2019/05/tidyverse-default.png" width="30%", align="right"/>
+]
+--
+.left[
+- One of the most useful packages to use is **tidyverse**
+]
+--
+.left[
+- Tidyverse is a collection of some very commonly used packages
+]
+<br>
+
+```{r tidyverse, out.width = '50%', echo = FALSE, fig.align='center'}
+knitr::include_graphics("https://uopsych-r-bootcamp-2020.netlify.app/slides/images/tidyverse_packages_purpose.png")
+```
+
+
+---
+
+class: left, top
+
+# Load packages and import data
+
+.pull-left[
+`r fa("box-open", fill = "black")` Install packages and load data
+```{r packages, message=FALSE, warning=FALSE, echo=TRUE}
+install.packages("tidyverse")
+install.packages("readxl")
+
+library(tidyverse)
+library(readxl)
+```
+]
+--
+.pull-right[
+`r fa("file-import", fill = "black")` Import example data using the `readxl` package, which loads Excel (.xlsx) data into R
+
+```{r import data, echo=TRUE}
+data  <- read_excel("SCU_PASER_files/data.xlsx")
+```
+]
+--
+<br>
+.centre[
+`r fa("glasses", fill = "black")`  We can view our data set using **print**
+
+```{r print, echo=TRUE, message=FALSE, warning=FALSE}
+print(data, n=5) # n = number of rows to show
+```
+]
+---
+
+# Summarise data
+
+`r fa("broom", fill = "black")` Using the **tidyverse** package, we will create some summary statistics from the dataset
+--
+
+```{r summarise, echo=TRUE, message=FALSE, warning=FALSE}
+
+summary <- data %>%
+      group_by(Position) %>% 
+            summarize(
+                      'Ave_Acc'= mean(Acc_10m),
+                      'Ave_CMJ'= mean(CMJ),
+                      'Ave_505'= mean(COD_505),
+                      'Ave_MaxVel'= mean(Max_velocity),
+                      'Ave_Sprint'= mean(Sprint_20m),
+                      'Ave_Squat'= mean(Squat),
+                      'Ave_YYIRL1' = mean(YYIRL1))
+
+print(summary)
+```
+
+---
+
+# Long to wide format
+
+.pull-left[
+`r fa("times", fill = "black")` When data is spread across columns, it can make it harder to visualise
+`r fa("check", fill = "black")` We can mimic what a **pivot table** might do in excel (but easier of course) using the **reshape2** package]
+
+--
+
+.pull-right[
+```{r wide to long, echo=FALSE, fig.align='right', out.width='85%'}
+knitr::include_graphics("https://rforhr.com/datastructure.png")
+```
+]
+
+--
+
+<br>
+
+--
+
+.pull-left[`r fa("directions", fill = "black")` Using the melt function in the **reshape2** package, we can flip the dataset by selected variables
+
+```{r working code 2, echo=TRUE, message=FALSE, warning=FALSE}
+library(reshape2)
+
+long <- melt(data, id.vars = c("Name", "Position"), 
+             variable.name = "Test",
+             value.name = "Score")
+
+```
+]
+
+--
+
+.pull-right[
+```{r working code 3, echo=FALSE, message=FALSE, warning=FALSE}
+
+head(long, n=6)
+```
+
+]
+
+---
+
+# Merge data frames
+
+`r fa("arrow-right", fill = "black")` We can **merge** dataframes based off common columns
+
+--
+
+`r fa("person-running", fill = "black")` I want to merge my testing data with research-based benchmarks for athlete testing data
+--
+
+
+```{r join, echo=TRUE, message=FALSE, warning=FALSE}
+
+benchmarks <- read_excel("SCU_PASER_files/Benchmark.xlsx") # Import benchmarks dataset (mean/SD)
+
+long <- full_join(long, benchmarks, by = c("Test")) # Join dataset by using 'Test' as common column
+```
+<br>
+
+```{r working code 4, echo=FALSE, message=FALSE, warning=FALSE}
+head(long, 8)
+```
+
+---
+
+# Clean data and new columns
+
+`r fa("calculator", fill = "black")` Calculate Z-score and STEN score to standardise testing scores against benchmark
+
+```{r working code 5, echo=TRUE, message=FALSE, warning=FALSE}
+long$Z_score <- (long$Score - long$Mean) / long$SD # Z-score
+long$STEN <- (2*long$Z_score) +5.5 # STEN score
+```
+
+--
+
+.pull.left[`r fa("broom", fill = "black")` Clean file by renaming columns
+
+```{r working code 6, echo=TRUE, message=FALSE, warning=FALSE}
+long <- long %>%
+  mutate(Test = case_when(
+        Test == "Sprint_20m" ~ "20 m",
+        Test == "Acc_10m" ~ "10 m",
+        Test == "COD_505" ~ "5-0-5", 
+        Test == "Squat" ~ "Back squat", 
+        Test == "Max_velocity" ~ "Max velocity",
+    TRUE ~ Test  # Keep other values unchanged
+  ))
+```
+
+]
+--
+
+```{r working code 7, echo=FALSE, message=FALSE, warning=FALSE}
+head(long, n=6)
+```
+
+---
+
+# Create visualisation
+
+`r fa("chart-simple", fill = "black")` Using a powerful package called **ggplot2** we can create publication worthy visualisations
+
+--
+
+`r fa("filter", fill = "black")` Filter dataset to one test then plot
+
+```{r working code 9, echo=TRUE, results='hide', fig.keep='none', fig.align='center'}
+library(ggplot2)
+
+filtered_data <- long %>%
+  filter(Test == "Squat")
+
+ggplot(filtered_data, aes(x = reorder(Name, Z_score), y = Z_score, fill = Z_score)) + # Select cols
+  geom_bar(stat = "identity") +  # Bar chart
+  scale_fill_gradient2(
+      name = "Benchmark score", 
+      low = "red", mid = "lightyellow", high = "#03C03C", midpoint = 0, # Set colour scale
+      limits = c(-0.8, 0.8)) +
+  labs(x = "Athlete", y = "Z score") + # Axis labels
+  theme_classic() # Simple theme (remove gridlines etc)
+
+```
+---
+
+# Create visualisation
+
+`r fa("chart-simple", fill = "black")` Using a powerful package called **ggplot2** we can create publication worthy visualisations
+
+`r fa("filter", fill = "black")` Filter dataset to one test then plot
+<br>
+
+```{r working code 10, echo=FALSE, fig.align='center', fig.height=6, fig.width=14, message=FALSE}
+filter <- read_csv("SCU_PASER_files/filter.csv")
+
+
+ggplot(filter, aes(x = reorder(Name, Z_score), y = Z_score, fill = Z_score)) +
+  geom_bar(stat = "identity") +  
+  scale_fill_gradient2(
+      name = "Benchmark score", 
+      low = "red", mid = "lightyellow", high = "#03C03C", midpoint = 0,
+      limits = c(-0.8, 0.8)) +
+  labs(x = "Athlete", y = "Z score") + 
+  theme_classic()
+
+
+```
+
+
+
+---
+
+# Useful resources
+
+
+`r fa("external-link")`  Below are links to personal websites/websites that I find helpful
+
+.pull-left[
+**Websites**
+- [LinkedIn Learning](https://www.linkedin.com/learning/?u=75842122)
+
+- [R for data science](https://r4ds.had.co.nz/) 
+
+- [R visualisations](https://clauswilke.com/dataviz/)
+]
+
+
+.pull-left[
+**Personal pages**
+
+- [Alice Sweeting](http://sportstatisticsrsweet.rbind.io/)
+
+- [Ben Horsley](https://insidethenumbers.netlify.app/)
+
+- [Neil Collins](https://www.sportscidata.com/)
+
+- [Jose Fernandez](https://twitter.com/jfernandez__)
+
+]
+
+---
+
+class: right, hide_logo, inverse, bottom
+
+background-image: url("https://resources.afl.com.au/photo-resources/2019/11/14/2c9782b4-2794-4956-9ae7-916d0e018502/GFRiGW19RCP759699483.JPG?width=952&height=592")
+background-size: 100%
+
+
+# Thank you and good luck!
+
+#### `r fa("envelope", fill = "black")` [heidi.thornton@newcastle.edu.au](mailto:heidi.thornton@newcastle.edu.au)<br>
+#### `r fa("twitter", fill = "black")` [heidithornton09](https://twitter.com/heidithornton09)<br>
+#### `r fa("linkedin", fill = "white")`  [Heidi Thornton](https://www.linkedin.com/in/heidi-thornton-956354a0/)
+
+
